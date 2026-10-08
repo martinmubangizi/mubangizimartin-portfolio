@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Martin Mubangizi, financial crime expert in fraud analytics and applied machine learning, Kampala. Live fraud demos, prediction engines, projects and code.">
+<meta name="description" content="Martin Mubangizi, financial crime expert in fraud analytics and applied machine learning, Kampala. A working fraud and AML portal, prediction engines, projects and code.">
 <meta property="og:title" content="Martin Mubangizi · Financial Crime, Fraud Analytics and Machine Learning">
 <meta property="og:description" content="Work a live fraud case, tune detection rules, simulate a football match and browse the projects.">
 <meta property="og:type" content="website">
@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=JetBrains+Mono:wght@400;500&family=Martian+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: a casebook printed like a banknote. Sticky identity sidebar with microprint; content on the right in certificate frames, with the iPhone working cases and a MacBook running the lab. Intaglio indigo with serial-number red on security paper, light and dark. */
+/* Layout: a casebook printed like a banknote. Sticky identity sidebar with microprint; content on the right in certificate frames, with the iPhone working cases and a MacBook running a fraud and AML portal. Intaglio indigo with serial-number red on security paper, light and dark. */
 :root{
   --bg:#F3F3EE; --bg-2:#EAEAE3; --surface:#FFFFFF; --surface-2:#F0F0EA; --ink:#16142E; --ink-2:#38364F; --muted:#686680; --line:#DDDCE2; --line-2:#C6C4D2;
   --accent:#3A31B0; --accent-2:#2A7387; --accent-soft:rgba(58,49,176,.08); --accent-ink:#FFFFFF;
@@ -705,6 +705,278 @@ footer .f-r{display:grid;gap:10px;justify-items:end;text-align:right}
 .mac-base{position:relative;height:16px;margin-inline:-3.2%;border-radius:2px 2px 18px 18px;background:linear-gradient(180deg,var(--mac1) 0%,var(--mac2) 70%,var(--mac3) 100%);box-shadow:0 18px 30px -16px rgba(10,8,30,.45)}
 .mac-base::before{content:"";position:absolute;top:0;left:50%;width:16%;height:6px;transform:translateX(-50%);border-radius:0 0 8px 8px;background:var(--mac3);opacity:.55}
 @media (max-width:700px){.mac{padding-inline:2%}.mac-screen{padding:9px 7px 10px;border-radius:12px 12px 5px 5px}.mac-display{height:76vh}.mac-win{margin:8px 6px 8px}.mac-body{padding:12px}.mb-hide{display:none}}
+
+/* ===== FinCrime portal inside the MacBook ===== */
+:root{--c1:#5148D0;--c2:#0F8FA8;--c3:#C27A12;--amber:#B26A00;--amber-soft:rgba(178,106,0,.12);--os-nav:#1B1838;--os-nav-2:#252150;--os-nav-ink:#C9C6E8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--c1:#867CF0;--c2:#1FA3BC;--c3:#C7811C;--amber:#E0A23E;--amber-soft:rgba(224,162,62,.14);--os-nav:#0B0A16;--os-nav-2:#17152C;--os-nav-ink:#B9B6D6}}
+:root[data-theme="dark"]{--c1:#867CF0;--c2:#1FA3BC;--c3:#C7811C;--amber:#E0A23E;--amber-soft:rgba(224,162,62,.14);--os-nav:#0B0A16;--os-nav-2:#17152C;--os-nav-ink:#B9B6D6}
+
+.mb-full{margin-left:auto;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#F2F1FA;border-radius:4px;padding:1px 8px;font-size:10.5px;font-family:var(--sans);cursor:pointer}
+.mb-full:hover{background:rgba(255,255,255,.18)}
+.mb-full + .mb-r{margin-left:12px}
+.os-url{flex:1;min-width:0;display:flex;align-items:center;gap:8px;justify-content:center;font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:4px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:420px;margin-inline:auto}
+.os-url b{color:var(--ink);font-weight:500}
+.os-body{padding:0!important;overflow:hidden!important;display:flex;flex-direction:column;position:relative;font-size:12.5px;line-height:1.45;color:var(--ink-2)}
+.os-view{flex:1;min-height:0;overflow:auto}
+.portal-cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:-8px 0 0}
+
+/* full screen */
+.mac.full{position:fixed;inset:0;z-index:85;margin:0;padding:12px max(12px,2vw);background:rgba(6,5,18,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;flex-direction:column;justify-content:center}
+.mac.full .mac-screen{border-radius:12px;padding:10px}
+.mac.full .mac-display{height:calc(100vh - 44px)}
+.mac.full .mac-base{display:none}
+
+/* login */
+.os-login{display:grid;place-items:center;padding:24px;background:radial-gradient(120% 90% at 10% 0%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 60%),var(--bg)}
+.login-card{width:min(380px,100%);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px;display:grid;gap:14px;box-shadow:var(--shadow)}
+.brandmark{display:flex;align-items:center;gap:10px}
+.brandmark i{width:30px;height:30px;border-radius:8px;background:var(--accent);display:grid;place-items:center;color:var(--accent-ink);font-style:normal;font-family:var(--display);font-stretch:125%;font-weight:800;font-size:13px}
+.brandmark b{display:block;font-family:var(--display);font-stretch:112%;font-weight:800;font-size:15px;color:var(--ink);line-height:1.1}
+.brandmark span{font-size:11px;color:var(--muted)}
+.login-card h3{margin:0;font-size:17px;color:var(--ink)}
+.login-user{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--os-nav);color:#fff;display:grid;place-items:center;font-weight:700;font-size:11px;flex:none}
+.login-user b{display:block;color:var(--ink);font-size:13px}
+.login-user span{font-size:11px;color:var(--muted)}
+.role-pick{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.role-pick label{border:1px solid var(--line);border-radius:8px;padding:9px 10px;cursor:pointer;display:grid;gap:2px;background:var(--bg)}
+.role-pick label b{font-size:12.5px;color:var(--ink)}
+.role-pick label span{font-size:11px;color:var(--muted)}
+.role-pick input{position:absolute;opacity:0;pointer-events:none}
+.role-pick label:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+.login-note{font-size:11px;color:var(--muted);margin:0}
+.obtn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid transparent;background:var(--accent);color:var(--accent-ink);border-radius:6px;padding:7px 12px;font-size:12.5px;font-weight:600;cursor:pointer;white-space:nowrap}
+.obtn:hover{filter:brightness(1.08)}
+.obtn.sec{background:var(--surface);color:var(--ink);border-color:var(--line-2)}
+.obtn.sec:hover{border-color:var(--accent);filter:none}
+.obtn.danger{background:var(--bad);color:#fff}
+.obtn.ok{background:var(--ok);color:#fff}
+.obtn.sm{padding:4px 9px;font-size:11.5px}
+.obtn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+
+/* launcher */
+.os-launch{padding:20px;background:var(--bg)}
+.launch-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.launch-head h3{margin:0;font-family:var(--display);font-stretch:112%;font-weight:800;font-size:20px;color:var(--ink)}
+.launch-head p{margin:2px 0 0;color:var(--muted)}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.tile{display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 10px;align-items:start;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px;cursor:pointer;color:inherit;font:inherit;transition:border-color .2s,transform .2s}
+.tile:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tile .ic{grid-row:1/3;width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent)}
+.tile b{color:var(--ink);font-size:13px}
+.tile span{font-size:11.5px;color:var(--muted);line-height:1.35}
+.tile em{grid-column:2;font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--accent);margin-top:2px}
+
+/* app shell */
+.os-app{display:flex;background:var(--bg)}
+.os-body{container:osapp/inline-size}
+.os-page .env{padding:0}
+.os-nav{flex:none;width:184px;background:var(--os-nav);color:var(--os-nav-ink);display:flex;flex-direction:column;padding:10px 8px;gap:2px;overflow-y:auto;scrollbar-width:none}
+.os-nav::-webkit-scrollbar{display:none}
+.os-nav .brandmark{padding:4px 6px 12px}
+.os-nav .brandmark b{color:#fff;font-size:13px}
+.os-nav .brandmark span{color:var(--os-nav-ink);opacity:.8}
+.os-nav .brandmark i{width:26px;height:26px;font-size:11px}
+.nav-g{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.55;padding:10px 8px 4px}
+.nav-i{display:flex;align-items:center;gap:9px;border:0;background:transparent;color:inherit;font:inherit;font-size:12.5px;padding:7px 8px;border-radius:6px;cursor:pointer;text-align:left;white-space:nowrap}
+.nav-i svg{flex:none;opacity:.85}
+.nav-i:hover{background:var(--os-nav-2);color:#fff}
+.nav-i[aria-current="page"]{background:rgba(255,255,255,.1);color:#fff;box-shadow:inset 2px 0 0 #A79EFF}
+.nav-i .nb{margin-left:auto;font-family:var(--mono);font-size:10px;background:rgba(255,255,255,.12);border-radius:999px;padding:1px 6px}
+.os-main{flex:1;min-width:0;display:flex;flex-direction:column;position:relative}
+.os-top{flex:none;display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line);background:var(--surface)}
+.crumb{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.crumb b{color:var(--ink);font-weight:600}
+.gsearch{position:relative;margin-left:auto;flex:0 1 220px;min-width:110px}
+.gsearch input{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:5px 9px;font:inherit;font-size:12px;outline:none}
+.gsearch input:focus{border-color:var(--accent)}
+.gs-res{position:absolute;top:calc(100% + 4px);right:0;width:min(300px,80cqi);background:var(--surface);border:1px solid var(--line-2);border-radius:8px;box-shadow:var(--shadow);z-index:20;padding:4px;max-height:260px;overflow:auto}
+.gs-res button{display:flex;width:100%;gap:8px;align-items:baseline;border:0;background:transparent;color:var(--ink-2);font:inherit;font-size:12px;text-align:left;padding:6px 8px;border-radius:5px;cursor:pointer}
+.gs-res button:hover{background:var(--accent-soft)}
+.gs-res small{margin-left:auto;color:var(--muted);font-size:10.5px}
+.ibtn2{position:relative;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink-2);border-radius:6px;padding:5px 8px;font:inherit;font-size:12px;cursor:pointer;white-space:nowrap}
+.ibtn2:hover{border-color:var(--accent);color:var(--ink)}
+.ibtn2 .dotc{position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;border-radius:8px;background:var(--bad);color:#fff;font-size:9.5px;font-weight:700;display:grid;place-items:center;padding:0 4px}
+.rolechip b{font-weight:600;color:var(--ink)}
+.os-page{flex:1;min-height:0;overflow:auto;padding:16px;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;overscroll-behavior:contain}
+@container osapp (max-width:760px){.os-nav{width:52px;padding:10px 6px}.os-nav .brandmark b,.os-nav .brandmark span,.nav-i .lbl,.nav-g,.nav-i .nb{display:none}.os-nav .brandmark{padding:4px 2px 10px;justify-content:center}.nav-i{justify-content:center;padding:8px 6px}.gsearch{flex-basis:140px}.rolechip .lbl{display:none}}
+@container osapp (max-width:520px){.os-app{flex-direction:column}.os-nav{width:auto;flex-direction:row;padding:6px;overflow-x:auto;gap:2px}.os-nav .brandmark{display:none}.nav-i{flex:none}.crumb{display:none}.os-page{padding:12px}}
+
+/* env header & tabs */
+.env-h{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.env-h h3{margin:0;font-family:var(--display);font-stretch:112%;font-weight:800;font-size:18px;color:var(--ink);letter-spacing:-.01em}
+.env-h p{margin:2px 0 0;color:var(--muted);font-size:12px;max-width:62ch}
+.etabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:14px;overflow-x:auto;scrollbar-width:none}
+.etabs::-webkit-scrollbar{display:none}
+.etabs button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:12.5px;font-weight:500;padding:8px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;white-space:nowrap}
+.etabs button:hover{color:var(--ink)}
+.etabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+
+/* building blocks */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:8px;margin-bottom:12px}
+.kpi2{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:9px 11px;display:grid;gap:1px;min-width:0}
+.kpi2 span{font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi2 b{font-family:var(--display);font-stretch:108%;font-weight:700;font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.15}
+.kpi2 small{font-size:10.5px;color:var(--muted)}
+.kpi2 small.up{color:var(--bad)}.kpi2 small.dn{color:var(--ok)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:10px}
+.grid3{display:grid;grid-template-columns:1.4fr 1fr;gap:10px;margin-bottom:10px}
+@container osapp (max-width:900px){.grid2,.grid3{grid-template-columns:1fr}}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px;min-width:0}
+.box h4{margin:0 0 2px;font-size:12.5px;color:var(--ink);font-weight:600;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.box h4 small{font-weight:400;color:var(--muted);font-size:10.5px}
+.box .sub{margin:0 0 8px;font-size:11px;color:var(--muted)}
+.box svg{width:100%;height:auto;display:block}
+.otw{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+.ot{width:100%;border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
+.ot th{position:sticky;top:0;background:var(--surface-2);color:var(--muted);font-weight:600;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
+.ot th.sortable{cursor:pointer}
+.ot th.sortable:hover{color:var(--ink)}
+.ot td{padding:7px 9px;border-bottom:1px solid var(--line);white-space:nowrap;color:var(--ink-2)}
+.ot tr:last-child td{border-bottom:0}
+.ot tbody tr.click{cursor:pointer}
+.ot tbody tr.click:hover td{background:var(--accent-soft)}
+.ot tbody tr.sel td{background:var(--accent-soft)}
+.ot tbody tr.fresh td{animation:fresh 1.2s ease-out}
+@keyframes fresh{from{background:color-mix(in srgb,var(--accent) 16%,transparent)}}
+.ot .r{text-align:right}
+.ot .m{font-family:var(--mono);font-size:11.5px}
+.ot td.wrap{white-space:normal;min-width:180px}
+.chip2{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:4px;white-space:nowrap}
+.chip2::before{content:"";width:6px;height:6px;border-radius:1px;background:currentColor;flex:none}
+.cs-bad{background:var(--warn-soft);color:var(--bad)}
+.cs-amb{background:var(--amber-soft);color:var(--amber)}
+.cs-ok{background:var(--ok-soft);color:var(--ok)}
+.cs-acc{background:var(--accent-soft);color:var(--accent)}
+.cs-mut{background:var(--surface-2);color:var(--muted)}
+.pri{font-family:var(--mono);font-size:10.5px;font-weight:600;padding:2px 6px;border-radius:4px;border:1px solid currentColor}
+.pri.p1{color:var(--bad)}.pri.p2{color:var(--amber)}.pri.p3{color:var(--muted)}
+.scb{display:inline-grid;grid-template-columns:44px auto;gap:6px;align-items:center;font-family:var(--mono);font-size:11px}
+.scb i{height:5px;border-radius:3px;background:var(--line);overflow:hidden;display:block}
+.scb i b{display:block;height:100%;border-radius:3px}
+.fbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.fchip{border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:3px 10px;font:inherit;font-size:11.5px;cursor:pointer}
+.fchip:hover{border-color:var(--accent)}
+.fchip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fsel,.finp{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:6px;padding:4px 8px;font:inherit;font-size:11.5px}
+.finp{min-width:0}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono)}
+.spacer{flex:1}
+.note{font-size:11px;color:var(--muted);margin:8px 0 0}
+
+/* drawer */
+.os-drawer{position:absolute;top:0;right:0;bottom:0;width:min(460px,94%);background:var(--surface);border-left:1px solid var(--line-2);box-shadow:-20px 0 40px -20px rgba(0,0,0,.35);z-index:15;display:flex;flex-direction:column;animation:dslide .25s ease-out}
+@keyframes dslide{from{transform:translateX(30px);opacity:0}}
+.dr-h{flex:none;display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.dr-h h4{margin:0;font-size:14px;color:var(--ink)}
+.dr-h p{margin:2px 0 0;font-size:11px;color:var(--muted)}
+.dr-x{margin-left:auto;border:1px solid var(--line);background:var(--bg);color:var(--muted);width:26px;height:26px;border-radius:6px;font-size:16px;line-height:1;cursor:pointer;flex:none}
+.dr-b{flex:1;overflow:auto;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-content:start}
+.dr-f{flex:none;display:flex;gap:6px;flex-wrap:wrap;padding:10px 14px;border-top:1px solid var(--line);background:var(--surface-2)}
+.dsec h5{margin:0 0 6px;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.kv{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;font-size:12px}
+.kv dt{color:var(--muted)}
+.kv dd{margin:0;color:var(--ink);overflow-wrap:anywhere}
+.factor{display:grid;grid-template-columns:minmax(0,1fr) 120px 40px;gap:8px;align-items:center;font-size:11.5px;padding:3px 0}
+.factor i{height:7px;background:var(--line);border-radius:4px;position:relative;display:block}
+.factor i b{position:absolute;top:0;bottom:0;border-radius:4px}
+.factor span:last-child{font-family:var(--mono);text-align:right;font-size:11px}
+.hitl{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.hitl li{display:flex;gap:8px;align-items:baseline;font-size:12px}
+.hitl li .mono{font-size:10.5px;color:var(--muted)}
+.timeline{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:11.5px}
+.timeline li{display:grid;grid-template-columns:62px minmax(0,1fr);gap:8px}
+.timeline time{font-family:var(--mono);color:var(--muted);font-size:10.5px}
+textarea.ta{width:100%;min-height:62px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit;font-size:12px;padding:7px 9px;resize:vertical}
+
+/* kanban */
+.kanban{display:grid;grid-template-columns:repeat(6,minmax(150px,1fr));gap:8px;overflow-x:auto;padding-bottom:6px}
+.kcol{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:8px;display:grid;gap:6px;align-content:start;min-height:180px}
+.kcol h5{margin:0 0 2px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.kcard{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:8px;text-align:left;font:inherit;color:inherit;cursor:pointer;display:grid;gap:3px}
+.kcard:hover{border-color:var(--accent)}
+.kcard b{font-size:12px;color:var(--ink)}
+.kcard .mono{font-size:10.5px;color:var(--muted)}
+.kcard span{font-size:11px;color:var(--muted)}
+
+/* districts, cards */
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:5px}
+.dtile{border:1px solid var(--line);border-radius:6px;padding:7px;text-align:left;font:inherit;cursor:pointer;display:grid;gap:1px;color:var(--ink)}
+.dtile b{font-size:11.5px}
+.dtile span{font-size:10px;color:var(--ink-2);font-family:var(--mono)}
+.dtile:hover{outline:2px solid var(--accent);outline-offset:-1px}
+.os-page .ccards{margin-top:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.ccard2{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:11px;display:grid;gap:5px;align-content:start;text-align:left;font:inherit;color:inherit}
+button.ccard2{cursor:pointer}
+button.ccard2:hover{border-color:var(--accent)}
+.ccard2 b{color:var(--ink);font-size:12.5px}
+.ccard2 p{margin:0;font-size:11.5px;color:var(--muted)}
+.ccard2 ul{margin:0;padding-left:16px;font-size:11.5px;display:grid;gap:2px}
+.ccard2.sel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft)}
+
+/* forms */
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@container osapp (max-width:640px){.form{grid-template-columns:1fr}}
+.fld{display:grid;gap:3px;font-size:11.5px}
+.fld>span{color:var(--muted);font-weight:500}
+.fld select,.fld input[type=text],.fld input[type=number]{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:6px 8px;font:inherit;font-size:12px}
+.fld.full{grid-column:1/-1}
+.chk{display:flex;gap:7px;align-items:flex-start;font-size:12px;cursor:pointer}
+.chk input{margin-top:2px;accent-color:var(--accent)}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.steps span{font-size:11px;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+.steps span.on{border-color:var(--accent);color:var(--accent);font-weight:600}
+.steps span.done{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.valid{list-style:none;margin:0;padding:0;display:grid;gap:5px;font-size:12px}
+.valid li{display:flex;gap:7px}
+.valid .y{color:var(--ok)}.valid .n{color:var(--bad)}
+.gauge{display:grid;gap:4px}
+.gauge .gb{position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,var(--ok-soft) 0 40%,var(--amber-soft) 40% 70%,var(--warn-soft) 70%)}
+.gauge .gb i{position:absolute;top:-3px;width:3px;height:16px;background:var(--ink);border-radius:2px}
+.bullet{display:grid;grid-template-columns:130px minmax(0,1fr) 54px;gap:8px;align-items:center;font-size:11.5px;padding:3px 0}
+.bullet .bt{position:relative;height:8px;background:var(--line);border-radius:4px}
+.bullet .bt b{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.bullet .bt i{position:absolute;top:-3px;width:2px;height:14px;background:var(--ink)}
+.bullet span:last-child{font-family:var(--mono);text-align:right}
+.legend2{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:6px}
+.legend2 span{display:inline-flex;align-items:center;gap:5px}
+.legend2 i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.legend2 i.ln{height:2px;border-radius:1px}
+.ax2{stroke:var(--line-2);stroke-width:1}
+.gr2{stroke:var(--line);stroke-width:1}
+.tx2{fill:var(--muted);font-family:var(--mono);font-size:9.5px}
+.tx2b{fill:var(--ink-2);font-family:var(--sans);font-size:10.5px}
+.mk1{fill:var(--c1)}.mk2{fill:var(--c2)}.mk3{fill:var(--c3)}
+.ln1{fill:none;stroke:var(--c1);stroke-width:2}.ln2{fill:none;stroke:var(--c2);stroke-width:2}
+.mkbad{fill:var(--bad)}
+.hov:hover{opacity:.8}
+
+/* link analysis */
+.graph-wrap{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:10px}
+@container osapp (max-width:760px){.graph-wrap{grid-template-columns:1fr}}
+.graph svg{width:100%;height:auto;display:block;touch-action:manipulation}
+.gedge{stroke:var(--line-2);stroke-width:1.4}
+.gedge.dev{stroke:var(--bad);stroke-dasharray:4 3}
+.gedge.cash{stroke:var(--c3)}
+.gedge.hi{stroke:var(--accent);stroke-width:2.4}
+.gnode{cursor:pointer}
+.gnode circle,.gnode rect{stroke:var(--surface);stroke-width:2}
+.gnode text{font-family:var(--mono);font-size:9px;fill:var(--ink-2);pointer-events:none}
+.gnode.dim{opacity:.25}
+.gnode.sel circle,.gnode.sel rect{stroke:var(--ink);stroke-width:2.5}
+.gnode.new{animation:gin .5s ease-out}
+@keyframes gin{from{opacity:0}}
+
+/* keep programmatic scrolling out of the clipped frame */
+.mac-display,.mac-win{overflow:clip}
+.os-body{overflow:clip!important}
+@container osapp (max-width:520px){.top-out{display:none}.os-top{gap:6px;padding:6px 8px}.gsearch{min-width:0;flex:1 1 auto}.os-drawer{width:100%}}
+@container (max-width:720px){.os-page .scr-grid{grid-template-columns:minmax(0,1fr)}}
+.os-page .scr-left{grid-template-columns:minmax(0,1fr)}.os-page .sample{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.portal-cta .cta-note{font-size:.9rem}
+
 </style>
 </head>
 <body>
@@ -726,7 +998,7 @@ footer .f-r{display:grid;gap:10px;justify-items:end;text-align:right}
         <li><a href="#about">About</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#works">Case files</a></li>
-        <li><a href="#lab">Lab</a></li>
+        <li><a href="#lab">Fraud portal</a></li>
         <li><a href="#code">Code</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#credentials">Credentials</a></li>
@@ -813,23 +1085,53 @@ footer .f-r{display:grid;gap:10px;justify-items:end;text-align:right}
     </section>
 
     <section id="lab" data-spy>
-      <div class="sh"><h2>Lab</h2><span class="sh-meta">4 live demos · synthetic data</span></div>
-      <p class="lead">The methods behind the work, running live in your browser on synthetic data. Change anything and watch the result move.</p>
+      <div class="sh"><h2>Fraud portal</h2><span class="sh-meta">9 environments · synthetic data</span></div>
+      <p class="lead">Sign in to the financial crime portal of Ensi Money, a fictional mobile money operator with 1,240 agents. Watch transactions get scored, work alerts into cases, trace a mule ring, review agents for commission gaming, run AML checks, file an STR and inspect the models behind it all.</p>
+      <div class="portal-cta"><button type="button" class="btn" id="portal-full">Open the portal full screen</button><span class="muted cta-note">or sign in on the MacBook below</span></div>
       <div class="mac">
         <div class="mac-screen">
           <span class="mac-cam" aria-hidden="true"></span>
           <div class="mac-display">
-            <div class="mac-menubar" aria-hidden="true"><span class="mb-mark">MM</span><b>Fraud Lab</b><span>File</span><span>Edit</span><span>View</span><span class="mb-hide">Window</span><span class="mb-hide">Help</span><span class="mb-r" id="mac-time">--:--</span></div>
-            <div class="mac-win">
-              <div class="mac-title"><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span><div class="seg" role="tablist" id="lab-tabs">
-        <button role="tab" aria-selected="true" data-lab="rules">Detection rules</button>
-        <button role="tab" aria-selected="false" data-lab="screen">Sanctions screening</button>
-        <button role="tab" aria-selected="false" data-lab="model">Alert thresholds</button>
-        <button role="tab" aria-selected="false" data-lab="sim">Match simulator</button>
-      </div></div>
-              <div class="mac-body" id="mac-body">
-
-      <div class="lab-panel" id="lab-rules">
+            <div class="mac-menubar"><span class="mb-mark" aria-hidden="true">MM</span><b aria-hidden="true">FinCrime Portal</b><span aria-hidden="true">File</span><span aria-hidden="true">Edit</span><span aria-hidden="true">View</span><span class="mb-hide" aria-hidden="true">Window</span><span class="mb-hide" aria-hidden="true">Help</span><button type="button" class="mb-full" id="mac-full" aria-pressed="false">Full screen</button><span class="mb-r" id="mac-time" aria-hidden="true">--:--</span></div>
+            <div class="mac-win" id="os">
+              <div class="mac-title"><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span><span class="os-url"><svg width="10" height="12" viewBox="0 0 10 12" aria-hidden="true"><rect x="1" y="5" width="8" height="6.4" rx="1.4" fill="currentColor"/><path d="M2.8 5V3.6a2.2 2.2 0 0 1 4.4 0V5" fill="none" stroke="currentColor" stroke-width="1.3"/></svg><span>ensi-money.internal/portal/<b id="os-path">sign-in</b></span></span></div>
+              <div class="mac-body os-body" id="mac-body">
+                <div class="os-view os-login" id="os-login">
+                  <div class="login-card">
+                    <div class="brandmark"><i>E</i><div><b>Ensi Money</b><span>Financial crime portal</span></div></div>
+                    <h3>Sign in</h3>
+                    <div class="login-user"><span class="avatar">MM</span><div><b>Martin Mubangizi</b><span>martin.m@ensi-money.internal · SSO</span></div></div>
+                    <fieldset class="role-pick" style="border:0;margin:0;padding:0"><legend class="sr">Sign in as</legend>
+                      <label><input type="radio" name="os-role" value="Analyst" checked><b>Fraud analyst</b><span>Monitor, investigate, escalate</span></label>
+                      <label><input type="radio" name="os-role" value="MLCO"><b>MLCO</b><span>Approve and file STRs</span></label>
+                    </fieldset>
+                    <button type="button" class="obtn" data-login>Sign in to the portal</button>
+                    <p class="login-note">Ensi Money is a fictional mobile money operator. Every customer, agent and number in this portal is synthetic, generated in your browser.</p>
+                  </div>
+                </div>
+                <div class="os-view os-launch" id="os-launch" hidden></div>
+                <div class="os-view os-app" id="os-app" hidden>
+                  <nav class="os-nav" id="os-nav" aria-label="Portal environments"></nav>
+                  <div class="os-main">
+                    <header class="os-top">
+                      <span class="crumb" id="os-crumb"></span>
+                      <div class="gsearch"><label for="gs-q" class="sr">Search the portal</label><input id="gs-q" type="search" placeholder="Search the portal" autocomplete="off" spellcheck="false"><div class="gs-res" id="gs-res" hidden></div></div>
+                      <button type="button" class="ibtn2" id="os-bell" aria-label="Open P1 alerts"></button>
+                      <button type="button" class="ibtn2 rolechip" id="os-role" aria-label="Switch role"></button>
+                      <button type="button" class="ibtn2" id="os-home">Home</button>
+                      <button type="button" class="ibtn2 top-out" data-act="logout">Sign out</button>
+                    </header>
+                    <div class="os-page" id="os-page">
+<section class="env" data-env="command" id="env-command" aria-label="Command Centre" hidden>
+<div class="env-h"><div><h3>Command Centre</h3><p>Today's position across transactions, alerts, losses and agents.</p></div></div>
+<div id="cmd-root"></div>
+</section>
+<section class="env" data-env="monitor" id="env-monitor" aria-label="Transaction Monitoring" hidden>
+<div class="env-h"><div><h3>Transaction Monitoring</h3><p>Every transaction scored by rules and models, with the decision it gets.</p></div></div>
+<div class="etabs" role="tablist"><button role="tab" data-etab="live" aria-selected="false">Live feed</button><button role="tab" data-etab="rules" aria-selected="false">Rules</button><button role="tab" data-etab="tuner" aria-selected="false">Rule tuner</button></div>
+<div class="etab" data-tab="live" role="tabpanel" hidden><div id="mon-live"></div></div>
+<div class="etab" data-tab="rules" role="tabpanel" hidden><div id="mon-rules"></div></div>
+<div class="etab" data-tab="tuner" role="tabpanel" hidden><div class="lab-panel" id="lab-rules">
         <p class="blurb" style="margin-bottom:14px">Ten mobile money accounts, 72 hours of activity. Move a slider and every account is re-scored, the transactions that trip the rule light up, and the production SQL rewrites itself with your numbers.</p>
         <div class="seg" role="tablist" id="rule-tabs" style="margin-bottom:14px"></div>
         <div class="rules">
@@ -846,9 +1148,30 @@ footer .f-r{display:grid;gap:10px;justify-items:end;text-align:right}
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="lab-panel" id="lab-screen" hidden>
+      </div></div>
+</section>
+<section class="env" data-env="alerts" id="env-alerts" aria-label="Alerts &amp; Cases" hidden>
+<div class="env-h"><div><h3>Alerts &amp; Cases</h3><p>Work the queue, investigate, and take cases from triage to an STR.</p></div></div>
+<div class="etabs" role="tablist"><button role="tab" data-etab="queue" aria-selected="false">Alert queue</button><button role="tab" data-etab="cases" aria-selected="false">Case board</button></div>
+<div class="etab" data-tab="queue" role="tabpanel" hidden><div id="al-queue"></div></div>
+<div class="etab" data-tab="cases" role="tabpanel" hidden><div id="al-cases"></div></div>
+</section>
+<section class="env" data-env="links" id="env-links" aria-label="Link Analysis" hidden>
+<div class="env-h"><div><h3>Link Analysis</h3><p>Follow money between wallets, agents and shared devices.</p></div></div>
+<div id="links-root"></div>
+</section>
+<section class="env" data-env="agents" id="env-agents" aria-label="Agent Network" hidden>
+<div class="env-h"><div><h3>Agent Network</h3><p>Risk across 1,240 agents: commission gaming, float and districts.</p></div></div>
+<div class="etabs" role="tablist"><button role="tab" data-etab="overview" aria-selected="false">Overview</button><button role="tab" data-etab="list" aria-selected="false">Agent register</button></div>
+<div class="etab" data-tab="overview" role="tabpanel" hidden><div id="ag-overview"></div></div>
+<div class="etab" data-tab="list" role="tabpanel" hidden><div id="ag-list"></div></div>
+</section>
+<section class="env" data-env="aml" id="env-aml" aria-label="AML &amp; KYC" hidden>
+<div class="env-h"><div><h3>AML &amp; KYC</h3><p>Customer risk, enhanced due diligence, sanctions and typologies.</p></div></div>
+<div class="etabs" role="tablist"><button role="tab" data-etab="cra" aria-selected="false">Customer risk</button><button role="tab" data-etab="edd" aria-selected="false">EDD reviews</button><button role="tab" data-etab="sanctions" aria-selected="false">Sanctions screening</button><button role="tab" data-etab="typ" aria-selected="false">Typologies</button></div>
+<div class="etab" data-tab="cra" role="tabpanel" hidden><div id="aml-cra"></div></div>
+<div class="etab" data-tab="edd" role="tabpanel" hidden><div id="aml-edd"></div></div>
+<div class="etab" data-tab="sanctions" role="tabpanel" hidden><div class="lab-panel" id="lab-screen">
         <p class="blurb" style="margin-bottom:14px">Names arrive reordered, transliterated and half-typed. The matcher normalises them and compares three ways with Jaro-Winkler similarity. Drag the threshold to trade missed matches against false alarms.</p>
         <div class="scr-grid">
           <div class="panel scr-left">
@@ -865,9 +1188,27 @@ footer .f-r{display:grid;gap:10px;justify-items:end;text-align:right}
             <div class="fine">Fictional names only, with no real designations. Production screening runs against the UN, OFAC, EU, UK OFSI and domestic lists.</div>
           </div>
         </div>
-      </div>
-
-      <div class="lab-panel" id="lab-model" hidden>
+      </div></div>
+<div class="etab" data-tab="typ" role="tabpanel" hidden><div id="aml-typ"></div></div>
+</section>
+<section class="env" data-env="reports" id="env-reports" aria-label="Regulatory Reporting" hidden>
+<div class="env-h"><div><h3>Regulatory Reporting</h3><p>STRs on goAML, large cash, trust reconciliation and returns.</p></div></div>
+<div class="etabs" role="tablist"><button role="tab" data-etab="str" aria-selected="false">STR register</button><button role="tab" data-etab="wizard" aria-selected="false">File an STR</button><button role="tab" data-etab="lctr" aria-selected="false">Large cash</button><button role="tab" data-etab="recon" aria-selected="false">Trust reconciliation</button><button role="tab" data-etab="cal" aria-selected="false">Returns calendar</button></div>
+<div class="etab" data-tab="str" role="tabpanel" hidden><div id="rp-str"></div></div>
+<div class="etab" data-tab="wizard" role="tabpanel" hidden><div id="rp-wizard"></div></div>
+<div class="etab" data-tab="lctr" role="tabpanel" hidden><div id="rp-lctr"></div></div>
+<div class="etab" data-tab="recon" role="tabpanel" hidden><div id="rp-recon"></div></div>
+<div class="etab" data-tab="cal" role="tabpanel" hidden><div id="rp-cal"></div></div>
+</section>
+<section class="env" data-env="audit" id="env-audit" aria-label="Audit Log" hidden>
+<div class="env-h"><div><h3>Audit Log</h3><p>Every action taken in this session, for review.</p></div></div>
+<div id="audit-root"></div>
+</section>
+<section class="env" data-env="ml" id="env-ml" aria-label="ML Studio" hidden>
+<div class="env-h"><div><h3>ML Studio</h3><p>Model performance, drift, thresholds and explanations.</p></div></div>
+<div class="etabs" role="tablist"><button role="tab" data-etab="models" aria-selected="false">Models</button><button role="tab" data-etab="thr" aria-selected="false">Alert threshold</button><button role="tab" data-etab="explain" aria-selected="false">Explain an alert</button></div>
+<div class="etab" data-tab="models" role="tabpanel" hidden><div id="ml-models"></div></div>
+<div class="etab" data-tab="thr" role="tabpanel" hidden><div class="lab-panel" id="lab-model">
         <p class="blurb" style="margin-bottom:14px">A fraud model scores every account. Where the line sits decides how many alerts the team reviews, how many are real, and how much fraud walks past. Drag across the chart.</p>
         <div class="model">
           <div class="panel chart">
@@ -893,42 +1234,13 @@ footer .f-r{display:grid;gap:10px;justify-items:end;text-align:right}
           </div>
         </div>
         <p class="story" id="mstory"></p>
-      </div>
-
-      <div class="lab-panel" id="lab-sim" hidden>
-        <p class="blurb" style="margin-bottom:14px">The engine behind my World Cup and Premier League predictors, cut down to one match. Ratings set each side's expected goals, a Dixon-Coles correction adjusts the low scores, and a Monte Carlo run checks the maths by brute force.</p>
-        <div class="sim">
-          <div class="panel controls">
-            <div class="sim-team"><h4>Home side <span id="lam">λ 1.62</span></h4>
-              <div class="ctl"><label for="s-ha">Attack <output id="s-ha-o">1.20</output></label><input type="range" id="s-ha" min="0.6" max="1.8" step="0.05" value="1.2"></div>
-              <div class="ctl"><label for="s-hd">Defence <output id="s-hd-o">1.05</output></label><input type="range" id="s-hd" min="0.6" max="1.8" step="0.05" value="1.05"></div>
-            </div>
-            <div class="sim-team"><h4>Away side <span id="mu">μ 1.20</span></h4>
-              <div class="ctl"><label for="s-aa">Attack <output id="s-aa-o">1.00</output></label><input type="range" id="s-aa" min="0.6" max="1.8" step="0.05" value="1.0"></div>
-              <div class="ctl"><label for="s-ad">Defence <output id="s-ad-o">1.00</output></label><input type="range" id="s-ad" min="0.6" max="1.8" step="0.05" value="1.0"></div>
-            </div>
-            <label class="switch" for="s-home">Home advantage<input type="checkbox" id="s-home" checked></label>
-            <div class="ctl"><label for="s-rho">Dixon-Coles ρ <output id="s-rho-o">-0.08</output></label><input type="range" id="s-rho" min="-0.2" max="0.05" step="0.01" value="-0.08"></div>
-          </div>
-          <div class="panel sim-out">
-            <div class="hda">
-              <div class="hda-lab"><span>Exact probabilities</span><span>Home · Draw · Away</span></div>
-              <div class="hda-bar" id="hda-exact"></div>
-            </div>
-            <div class="hda">
-              <div class="hda-lab"><span id="mc-lab">Monte Carlo: not run yet</span><span id="mc-err"></span></div>
-              <div class="hda-bar" id="hda-mc"></div>
-            </div>
-            <div class="sim-run"><button class="btn" id="mc-run">Run 10,000 simulations</button><span class="sim-meta" id="mc-top"></span></div>
-            <div>
-              <span class="mini-k">Scoreline probabilities, home goals down, away goals across</span>
-              <div class="heat" id="heat" style="margin-top:8px"></div>
-            </div>
-            <div class="sim-meta" id="sim-meta"></div>
-            <button class="lnk" id="see-dc">Read the Dixon-Coles code</button>
-          </div>
-        </div>
-      </div>
+      </div></div>
+<div class="etab" data-tab="explain" role="tabpanel" hidden><div id="ml-explain"></div></div>
+</section>
+                    </div>
+                    <aside class="os-drawer" id="os-drawer" aria-label="Details" hidden></aside>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1783,7 +2095,7 @@ const WORKS=[
   how:["Dixon-Coles goal model for scoreline probabilities, with the low-score correction.","XGBoost in the ensemble for match outcomes.","Monte Carlo simulation of every path through the tournament.","Bracket dashboard published on GitHub Pages."],
   res:[["~80%","overall accuracy across the knockout rounds"],["Spain","correctly predicted as champion"]],
   skills:["Python","Machine learning","XGBoost","Dixon-Coles","Monte Carlo simulation","GitHub Pages"],
-  links:[["Open the bracket","https://martinmubangizi.github.io/wc2026-predictor/output/bracket.html"]],lab:"sim"},
+  links:[["Open the bracket","https://martinmubangizi.github.io/wc2026-predictor/output/bracket.html"]]},
  {id:"kazi",code:"KZA",title:"Kazi Analytics",cat:["product","ml"],status:"Live",live:true,thumb:"bars",feat:true,
   blurb:"A sports analytics platform for Uganda covering UPL football, NBL basketball, rugby and volleyball, with fantasy rugby and a computer vision product.",
   what:"Ugandan sport has fans and talent but very little data. Kazi Analytics, which I run as solo founder, collects that data, makes it watchable and turns it into games and products.",
@@ -1796,7 +2108,7 @@ const WORKS=[
   what:"A production-style prediction system for the Premier League, built on lessons from the World Cup model. One engine projects the whole season; the other prices every gameweek and learns from its own misses.",
   how:["Season engine: up to 20,000 Monte Carlo runs for expected points, title, top-four and relegation odds, plus a full 20×20 finish matrix.","Gameweek engine: 1X2 probabilities, likely scorelines and Asian Handicap fair lines for every match.","XGBoost, LightGBM and CatBoost ensemble with isotonic calibration.","Retrospective pipeline that classifies each miss (finishing luck, rating drift, game state, tactics) and applies damped rating corrections.","Modular loaders for FBref, Understat and football-data.co.uk, with all 8 smoke tests passing."],
   res:[["20,000","season simulations per run"],["20×20","finish-position matrix"]],
-  skills:["Python","Machine learning","XGBoost","LightGBM","CatBoost","Dixon-Coles","Elo and Pi-ratings","Monte Carlo simulation","Calibration","GitHub"],links:[],lab:"sim"},
+  skills:["Python","Machine learning","XGBoost","LightGBM","CatBoost","Dixon-Coles","Elo and Pi-ratings","Monte Carlo simulation","Calibration","GitHub"],links:[]},
  {id:"sentra",code:"SNT",title:"SentraAI",cat:["fraud","product"],status:"Prototype",thumb:"stream",
   blurb:"A real-time fraud intelligence platform with four products on one streaming Kafka and FastAPI backbone.",
   what:"Fraud intelligence that works as transactions happen, not in next-day reports. Four products share one streaming backbone: SentraScore, SentraAgent, SentraDash and SentraGuard.",
@@ -1819,11 +2131,11 @@ const WORKS=[
   what:"A crowdfunding platform for community causes that connects people in Uganda with the diaspora who want to back them.",
   how:["Next.js 14 front end deployed on Vercel.","Supabase back end.","Phase 1 complete with a working dashboard."],
   res:[],skills:["Next.js","Supabase","Vercel","JavaScript"],links:[]},
- {id:"lab",code:"LAB",title:"Fraud Analytics Lab",cat:["fraud","ml"],status:"Live on this page",live:true,thumb:"phone",
-  blurb:"The interactive demos on this site: a case escalation app, rule tuning, sanctions screening and alert threshold analysis.",
-  what:"A hands-on way to see how fraud work is done, hand-coded without frameworks so every interaction runs in the browser.",
-  how:["Case app on the iPhone: triage, investigation, MLCO referral and STR filing on goAML, with a shift dashboard.","Detection rules in SQL that rewrite themselves as you tune thresholds.","Jaro-Winkler sanctions screening with name normalisation.","Score distributions, precision, recall and analyst workload for a fraud model."],
-  res:[],skills:["JavaScript","SQL","Python","Sanctions screening","Alert investigation","Regulatory reporting","Machine learning"],links:[],lab:"rules"}
+ {id:"lab",code:"LAB",title:"FinCrime Portal",cat:["fraud","ml"],status:"Live on this page",live:true,thumb:"phone",
+  blurb:"A working fraud and AML portal for a fictional mobile money operator, with nine environments from live monitoring to goAML reporting.",
+  what:"The tooling a mobile money fraud team uses every day, rebuilt by hand without frameworks so every screen runs in the browser on synthetic data.",
+  how:["Command centre, live transaction scoring and 13 detection rules you can switch off or retune.","Alert queue with SLAs, explainable scores, case board and a four-step STR wizard gated by the MLCO role.","Agent network of 1,240 agents with gaming signals, a mule ring link graph and a customer risk calculator.","Trust account reconciliation, large cash reports, a returns calendar and a full audit log.","ML studio with four models, calibration, drift and per-alert explanations.","Case app on the iPhone: triage, investigation, MLCO referral and STR filing with a shift dashboard."],
+  res:[],skills:["JavaScript","SQL","Python","Transaction monitoring","Agent network risk","Sanctions screening","Regulatory reporting","Machine learning"],links:[],lab:"portal"}
 ];
 const SK_GROUPS=[
  ["Fraud and financial crime",["Transaction monitoring","Alert investigation","AML/CFT","KYC, CDD and EDD","Sanctions screening","Card fraud","Agent network risk","Regulatory reporting","Credit risk"]],
@@ -1916,7 +2228,7 @@ let lastFocus=null;
 function openWork(id,from){
   const w=workById(id);if(!w)return;lastFocus=from||document.activeElement;
   const acts=[];w.links.forEach(l=>acts.push(l[1][0]==="#"?'<a class="btn" href="'+l[1]+'" data-close>'+esc(l[0])+'</a>':'<a class="btn" href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+' ↗</a>'));
-  if(w.lab)acts.push('<button class="btn ghost" data-lab-open="'+w.lab+'">Try it in the lab</button>');
+  if(w.lab)acts.push('<button class="btn ghost" data-lab-open="'+w.lab+'">'+(w.lab==="portal"?"Open the portal":"Try it live")+'</button>');
   $("#wm-body").innerHTML='<div class="wm-thumb">'+thumbSVG(w.thumb,WORKS.indexOf(w)+3)+'</div><div class="wm-in"><div><span class="serial">Case file '+w.code+'</span> · <span class="status'+(w.live?" live":"")+'">'+esc(w.status)+'</span><h2 id="wm-title">'+esc(w.title)+'</h2></div><p class="sub">'+esc(w.blurb)+'</p>'+
     '<div><h4>What it is</h4><p>'+esc(w.what)+'</p></div>'+
     (w.how.length?'<div><h4>How it works</h4><ul>'+w.how.map(h=>"<li>"+esc(h)+"</li>").join("")+'</ul></div>':"")+
@@ -1967,70 +2279,13 @@ document.addEventListener("click",e=>{
 $("#edu").innerHTML=EDU.map(e=>'<li><b>'+esc(e[0])+'</b><span>'+esc(e[1])+'</span><time>'+e[2]+'</time></li>').join("");
 $("#certs").innerHTML=CERTS.map(e=>'<li><b>'+esc(e[0])+'</b><span>'+esc(e[1])+'</span><time>'+e[2]+'</time></li>').join("");
 
-/* ================= lab tabs ================= */
-const LABS=["rules","screen","model","sim"];
-function labShow(k){
-  const mb=document.getElementById("mac-body");if(mb)mb.scrollTop=0;
-  LABS.forEach(n=>{$("#lab-"+n).hidden=n!==k;});
-  $$("#lab-tabs [data-lab]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.lab===k)));
-  if(k==="sim")renderSim();if(k==="model")renderModel();
-  paintAll();
-}
-$("#lab-tabs").addEventListener("click",e=>{const b=e.target.closest("[data-lab]");if(b)labShow(b.dataset.lab);});
-
-/* ================= match simulator ================= */
-const FACT=[1];for(let i=1;i<=12;i++)FACT[i]=FACT[i-1]*i;
-const pois=(k,l)=>Math.exp(-l)*Math.pow(l,k)/FACT[k];
-const SIM_G=10;
-function simParams(){const v=id=>+$(id).value;const home=$("#s-home").checked;
-  return{l:1.35*v("#s-ha")/v("#s-ad")*(home?1.15:1),m:1.35*v("#s-aa")/v("#s-hd"),rho:v("#s-rho")};}
-function dcMatrix(l,m,rho){const M=[];let tot=0;
-  for(let x=0;x<=SIM_G;x++){M[x]=[];for(let y=0;y<=SIM_G;y++){let p=pois(x,l)*pois(y,m);
-    if(x===0&&y===0)p*=1-l*m*rho;else if(x===0&&y===1)p*=1+l*rho;else if(x===1&&y===0)p*=1+m*rho;else if(x===1&&y===1)p*=1-rho;
-    p=Math.max(p,0);M[x][y]=p;tot+=p;}}
-  for(let x=0;x<=SIM_G;x++)for(let y=0;y<=SIM_G;y++)M[x][y]/=tot;return M;}
-function hdaOf(M){let h=0,d=0,a=0;for(let x=0;x<=SIM_G;x++)for(let y=0;y<=SIM_G;y++){if(x>y)h+=M[x][y];else if(x===y)d+=M[x][y];else a+=M[x][y];}return[h,d,a];}
-function hdaBar(el,p){const lab=["Home","Draw","Away"],cls=["h","d","a"];el.innerHTML=p.map((v,i)=>'<span class="'+cls[i]+'" style="flex:0 0 '+(v*100).toFixed(2)+'%">'+(v>.12?lab[i]+" "+(v*100).toFixed(1)+"%":(v>.06?(v*100).toFixed(0)+"%":""))+'</span>').join("");}
-let SIM=null,mcBusy=false,mcToken=0;
-function renderSim(){
-  const P=simParams();["s-ha","s-hd","s-aa","s-ad"].forEach(id=>{$("#"+id+"-o").textContent=(+$("#"+id).value).toFixed(2);});$("#s-rho-o").textContent=(+$("#s-rho").value).toFixed(2);
-  $("#lam").textContent="λ "+P.l.toFixed(2);$("#mu").textContent="μ "+P.m.toFixed(2);
-  const M=dcMatrix(P.l,P.m,P.rho);SIM={P,M};const pr=hdaOf(M);hdaBar($("#hda-exact"),pr);
-  let best=[0,0,0];for(let x=0;x<=SIM_G;x++)for(let y=0;y<=SIM_G;y++)if(M[x][y]>best[2])best=[x,y,M[x][y]];
-  let mx=0;for(let x=0;x<6;x++)for(let y=0;y<6;y++)mx=Math.max(mx,M[x][y]);
-  let h='<span class="hd"></span>';for(let y=0;y<6;y++)h+='<span class="hd">'+y+'</span>';
-  for(let x=0;x<6;x++){h+='<span class="hd">'+x+'</span>';for(let y=0;y<6;y++){const v=M[x][y],pc=Math.round(8+82*v/mx);
-    h+='<span class="cell'+(x===best[0]&&y===best[1]?" top":"")+'" style="background:color-mix(in srgb,var(--accent) '+pc+'%,var(--surface-2));'+(pc>55?"color:var(--accent-ink)":"")+'" title="'+x+'-'+y+': '+(v*100).toFixed(2)+'%">'+(v>=.01?(v*100).toFixed(0):"<1")+'</span>';}}
-  $("#heat").innerHTML=h;
-  let btts=0,over=0;for(let x=0;x<=SIM_G;x++)for(let y=0;y<=SIM_G;y++){if(x>0&&y>0)btts+=M[x][y];if(x+y>2)over+=M[x][y];}
-  $("#sim-meta").innerHTML='<span>Most likely <b>'+best[0]+'–'+best[1]+'</b> ('+(best[2]*100).toFixed(1)+'%)</span><span>Both teams score <b>'+(btts*100).toFixed(0)+'%</b></span><span>Over 2.5 goals <b>'+(over*100).toFixed(0)+'%</b></span><span>Fair home odds <b>'+(1/pr[0]).toFixed(2)+'</b></span>';
-  mcToken++;mcBusy=false;$("#mc-run").disabled=false;$("#mc-run").textContent="Run 10,000 simulations";
-  $("#hda-mc").innerHTML='<span class="d" style="flex:1">Run the simulation to compare</span>';$("#mc-lab").textContent="Monte Carlo: not run yet";$("#mc-err").textContent="";$("#mc-top").textContent="";
-}
-["s-ha","s-hd","s-aa","s-ad","s-rho"].forEach(id=>$("#"+id).addEventListener("input",renderSim));
-$("#s-home").addEventListener("change",renderSim);
-function runMC(){
-  if(mcBusy||!SIM)return;mcBusy=true;const tok=++mcToken;const M=SIM.M,N=10000,cells=[],cum=[];let c=0;
-  for(let x=0;x<=SIM_G;x++)for(let y=0;y<=SIM_G;y++){c+=M[x][y];cells.push([x,y]);cum.push(c);}
-  const ex=hdaOf(M),cnt=[0,0,0],sc={};let done=0;$("#mc-run").disabled=true;$("#mc-run").textContent="Simulating";
-  const batch=()=>{if(tok!==mcToken)return;
-    const end=Math.min(N,done+(reduce?N:400));
-    for(;done<end;done++){const u=Math.random()*c;let lo=0,hi=cum.length-1;while(lo<hi){const md=(lo+hi)>>1;if(cum[md]<u)lo=md+1;else hi=md;}const xy=cells[lo];cnt[xy[0]>xy[1]?0:xy[0]===xy[1]?1:2]++;const k=xy[0]+"–"+xy[1];sc[k]=(sc[k]||0)+1;}
-    const emp=cnt.map(v=>v/done);hdaBar($("#hda-mc"),emp);$("#mc-lab").textContent="Monte Carlo: "+fmt(done)+" of "+fmt(N)+" matches";
-    const err=Math.max.apply(null,emp.map((v,i)=>Math.abs(v-ex[i])))*100;$("#mc-err").textContent="largest gap "+err.toFixed(2)+" pts";
-    if(done<N){requestAnimationFrame(batch);}else{const top=Object.keys(sc).sort((a,b)=>sc[b]-sc[a])[0];$("#mc-top").innerHTML='<span>Most frequent score <b>'+top+'</b></span>';mcBusy=false;$("#mc-run").disabled=false;$("#mc-run").textContent="Run again";}
-  };
-  batch();
-}
-$("#mc-run").addEventListener("click",runMC);
-
 /* ================= terminal ================= */
 const tout=$("#term-out"),tin=$("#term-in");const hist=[];let hpos=0;
 function tp(text,cls){const d=document.createElement("div");if(cls)d.className=cls;d.textContent=text;tout.appendChild(d);tout.scrollTop=tout.scrollHeight;}
-const SECTIONS=[["live","Live case"],["about","About"],["experience","Experience"],["works","Case files"],["lab","Lab"],["code","Code"],["skills","Skills"],["credentials","Credentials"],["contact","Contact"]];
+const SECTIONS=[["live","Live case"],["about","About"],["experience","Experience"],["works","Case files"],["lab","Fraud portal"],["code","Code"],["skills","Skills"],["credentials","Credentials"],["contact","Contact"]];
 function findWork(q){q=q.toLowerCase().trim();return WORKS.find(w=>w.id===q||w.title.toLowerCase()===q)||WORKS.find(w=>w.title.toLowerCase().indexOf(q)>=0||w.id.indexOf(q)>=0);}
 const TERM={
-  help:()=>{tp("Commands","h");[["whoami","who I am"],["now","what I am doing now"],["experience","roles and dates"],["works","list projects"],["open <project>","open a project, e.g. open kazi"],["skills","skills by group"],["stack","tools I build with"],["goto <section>","jump to a section, e.g. goto lab"],["simulate","run the match simulator"],["contact","how to reach me"],["theme","switch light and dark"],["clear","clear the screen"]].forEach(r=>tp("  "+r[0].padEnd(16)+r[1]));},
+  help:()=>{tp("Commands","h");[["whoami","who I am"],["now","what I am doing now"],["experience","roles and dates"],["works","list projects"],["open <project>","open a project, e.g. open kazi"],["skills","skills by group"],["stack","tools I build with"],["goto <section>","jump to a section, e.g. goto lab"],["portal","sign in to the fraud portal"],["contact","how to reach me"],["theme","switch light and dark"],["clear","clear the screen"]].forEach(r=>tp("  "+r[0].padEnd(16)+r[1]));},
   whoami:()=>{tp("Martin Mubangizi","h");tp("Financial crime expert working in fraud analytics and applied machine learning. Fraud Risk Analyst at Wave Mobile Money Uganda, where I build SQL rules on Snowflake, Python models and Sigma dashboards. Football prediction engines on the side. Based in Kampala.");},
   now:()=>{tp("Now","h");tp("  Fraud Risk Analyst, Wave Mobile Money Uganda");tp("  MBA, University of East London ("+$("#mba-pct").textContent+" through)");tp("  Building Kazi Analytics and the Manteon studio");},
   experience:()=>{XP.forEach(x=>tp("  "+x.when.padEnd(20)+x.title+", "+x.org));},
@@ -2040,7 +2295,6 @@ const TERM={
   contact:()=>{tp("  Email  mubangizimartin1@gmail.com");tp("  Phone  0790 950 365 · 0746 551 277");tp("  Based  Kampala, Uganda (EAT, UTC+3)");},
   theme:()=>{toggleTheme();tp("Switched to "+curTheme()+" mode.","d");},
   clear:()=>{tout.innerHTML="";},
-  simulate:()=>{labShow("sim");go("lab");setTimeout(runMC,reduce?0:600);tp("Opening the match simulator and running 10,000 matches.","d");},
   hire:()=>{tp("Permission granted. Email mubangizimartin1@gmail.com and let's talk.","h");}
 };
 TERM.projects=TERM.works;TERM.xp=TERM.experience;TERM.resume=()=>tp("Email mubangizimartin1@gmail.com and I will send my résumé.","d");TERM.cv=TERM.resume;TERM.ls=TERM.works;
@@ -2055,7 +2309,7 @@ function runCmd(raw){
 }
 $("#term-form").addEventListener("submit",e=>{e.preventDefault();runCmd(tin.value);tin.value="";});
 tin.addEventListener("keydown",e=>{if(e.key==="ArrowUp"&&hist.length){hpos=Math.max(0,hpos-1);tin.value=hist[hpos];e.preventDefault();}else if(e.key==="ArrowDown"&&hist.length){hpos=Math.min(hist.length,hpos+1);tin.value=hist[hpos]||"";e.preventDefault();}});
-$("#term-chips").innerHTML=["help","whoami","works","open wc","skills","simulate","sudo hire martin"].map(c=>'<button type="button" data-cmd="'+c+'">'+c+'</button>').join("");
+$("#term-chips").innerHTML=["help","whoami","works","open wc","skills","portal","sudo hire martin"].map(c=>'<button type="button" data-cmd="'+c+'">'+c+'</button>').join("");
 $("#term-chips").addEventListener("click",e=>{const b=e.target.closest("[data-cmd]");if(b)runCmd(b.dataset.cmd);});
 tp("Welcome. This terminal runs on the same data as the page.","d");tp("Type help, or tap a command below.","d");
 
@@ -2068,7 +2322,7 @@ function cmdItems(){
   const it=[];
   SECTIONS.forEach(s=>it.push({g:"Go to",t:s[1],k:"section "+s[0],ic:"go",run:()=>go(s[0])}));
   WORKS.forEach(w=>it.push({g:"Projects",t:w.title,k:w.blurb+" "+w.skills.join(" "),hint:w.status,ic:"open",run:()=>openWork(w.id)}));
-  [["rules","Tune detection rules"],["screen","Screen a name against sanctions"],["model","Set a model alert threshold"],["sim","Simulate a football match"]].forEach(l=>it.push({g:"Lab",t:l[1],k:"lab demo "+l[0],ic:"act",run:()=>{labShow(l[0]);go("lab");}}));
+  [["rules","Tune detection rules"],["screen","Screen a name against sanctions"],["model","Set a model alert threshold"]].forEach(l=>it.push({g:"Fraud portal",t:l[1],k:"portal lab demo "+l[0],ic:"act",run:()=>{labShow(l[0]);go("lab");}}));
   it.push({g:"Actions",t:"Work a live case on the iPhone",k:"phone alert case",ic:"act",run:()=>{go("live");setTimeout(()=>{const n=document.querySelector(".ntf");if(n)n.click();},reduce?0:500);}});
   it.push({g:"Actions",t:"Open the shift dashboard",k:"phone dashboard",ic:"act",run:()=>{go("live");openApp("dash");}});
   it.push({g:"Actions",t:"Switch to "+(curTheme()==="dark"?"light":"dark")+" mode",k:"theme dark light",ic:"act",run:toggleTheme});
@@ -2122,10 +2376,587 @@ document.addEventListener("keydown",e=>{
 
 })();
 
-$("#see-dc").addEventListener("click",()=>{cur=FILES.findIndex(f=>f.f==="dixon_coles.py");renderFiles();go("code");});
+
+
+/* ================= FinCrime portal: synthetic world for "Ensi Money", a fictional operator ================= */
+const PR=rng(4242);
+const pk=a=>a[Math.floor(PR()*a.length)];
+const wpk=ps=>{let t=0;ps.forEach(p=>t+=p[1]);let u=PR()*t;for(const p of ps){u-=p[1];if(u<=0)return p[0];}return ps[ps.length-1][0];};
+const gss=()=>{let u=0;while(!u)u=PR();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*PR());};
+const lnrm=(mu,sg)=>Math.exp(mu+sg*gss());
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const sgm=z=>1/(1+Math.exp(-z));
+const lgt=p=>Math.log(p/(1-p));
+const uM=n=>{const a=Math.abs(n),s=n<0?"−":"";return s+(a>=1e9?(a/1e9).toFixed(2)+"bn":a>=1e6?(a/1e6).toFixed(a>=1e8?0:1)+"m":a>=1e3?Math.round(a/1e3)+"k":String(Math.round(a)));};
+const pc=(v,d)=>(v*100).toFixed(d==null?1:d)+"%";
+const HR=3600e3,DAY=86400e3,T0=Date.now();
+const tKla=t=>new Date(t).toLocaleTimeString("en-GB",{timeZone:"Africa/Kampala",hour:"2-digit",minute:"2-digit"});
+const dKla=t=>new Date(t).toLocaleDateString("en-GB",{timeZone:"Africa/Kampala",day:"numeric",month:"short"});
+const since=t=>{const m=Math.max(0,Math.round((Date.now()-t)/60000));return m<60?m+"m":m<1440?Math.floor(m/60)+"h "+(m%60)+"m":Math.floor(m/1440)+"d";};
+const DIST=[["Kampala",.30],["Wakiso",.16],["Mukono",.07],["Jinja",.06],["Mbarara",.06],["Gulu",.05],["Masaka",.05],["Mbale",.05],["Arua",.04],["Lira",.04],["Hoima",.03],["Kabarole",.03],["Kasese",.03],["Busia",.02],["Kabale",.01]];
+const BORDER=["Busia","Arua","Kasese","Kabale"];
+const OPERATOR="Ensi Money";
+
+/* typologies */
+const TYP={
+ struct:{n:"Structuring",r:"R-101",e:"Wallet",d:"Deposits kept just under a review or reporting threshold so no single one stands out.",f:["Repeated cash-ins just below a threshold","Several agents used on the same day","Funds consolidated, then moved on"]},
+ passthru:{n:"Rapid pass-through",r:"R-102",e:"Wallet",d:"Money arrives and leaves almost at once, the signature of a layering or mule wallet.",f:["Inflow and outflow within hours","Balance left near zero","Wallet opened recently"]},
+ mule:{n:"Mule collection",r:"R-103",e:"Wallet",d:"Many unrelated people pay one wallet, which then cashes out in full, often far away.",f:["Many first-time, unrelated senders","Full cash-out at a distant agent","Senders linked to reported fraud"]},
+ ato:{n:"Account takeover",r:"R-104",e:"Wallet",d:"A fraudster takes control of a customer's wallet, usually after a SIM swap or PIN reset.",f:["SIM swap shortly before the transfer","PIN reset from a new device","First ever high-value transfer"]},
+ gaming:{n:"Agent commission gaming",r:"R-108",e:"Agent",d:"Agents inflate commission with circular cash-in and cash-out loops through a few customers.",f:["High round-trip share","Volume concentrated in three customers","Split deposits and commission far above peers"]},
+ velocity:{n:"Velocity spike",r:"R-105",e:"Wallet",d:"A burst of activity far above the wallet's normal rhythm, often a compromised or rented wallet.",f:["Many transactions in one hour","Mostly first-time recipients","Small, similar amounts"]},
+ dormant:{n:"Dormant reactivation",r:"R-107",e:"Wallet",d:"A long-idle wallet suddenly receives and withdraws a large sum.",f:["No activity for months","Inflow and cash-out the same day","Expired KYC documents"]},
+ scam:{n:"Refund scam",r:"R-111",e:"Wallet",d:"Victims are called and told money was sent by mistake, then pressured to send it back.",f:["Reversal request soon after an inbound transfer","Caller claims a mistaken payment","Targets new or elderly users"]},
+ lctr:{n:"Large cash transaction",r:"R-112",e:"Wallet",d:"Cash at or above the reporting threshold, reported whether or not it is suspicious.",f:["Cash at or above threshold","Unusual for the customer's profile","Repeated large cash over weeks"]},
+ pep:{n:"PEP activity",r:"R-113",e:"Wallet",d:"Transactions by politically exposed persons that do not fit their known sources of funds.",f:["Inflows inconsistent with declared income","Third-party funding","Round-number transfers to associates"]},
+ sanc:{n:"Sanctions exposure",r:"R-109",e:"Wallet",d:"A customer or counterparty matches a name on a sanctions list.",f:["Name match above threshold","Date of birth or nationality also matches","Counterparty in a high-risk jurisdiction"]}
+};
+
+/* agents */
+const AGN1=["Pearl","Hope","Unity","Bright","Faith","Prime","Mega","City","Royal","Grace","Smart","Victory","Kingdom","Golden","Liberty","Summit","Nile","Crane"],AGN2=["Mobile Point","Money Shop","Agency","Kiosk","Traders","Centre","Express","Hub"];
+const AGS=[];
+for(let i=0;i<1240;i++){
+  const d=wpk(DIST),tpd=Math.round(clamp(lnrm(4.9,.45),25,620));
+  const a={id:"AG-"+(10400+i*7),name:pk(AGN1)+" "+pk(AGN2),d,tpd,flt:Math.round(clamp(lnrm(15.1,.55),5e5,4e7)/1e4)*1e4,
+    rt:+clamp(Math.pow(PR(),3)*.34,0,.9).toFixed(3),top3:+clamp(.04+Math.pow(PR(),2.2)*.42,0,.95).toFixed(3),split:+clamp(Math.pow(PR(),3.6)*.36,0,.8).toFixed(3),
+    peer:+clamp(.55+lnrm(-.15,.32),.3,5).toFixed(2),nf:+(.18+PR()*.72).toFixed(2),st:"Active",note:""};
+  a.com=Math.round(a.tpd*30*185*a.peer/1e3)*1e3;
+  AGS.push(a);
+}
+[37,118,240,377,501,644,790,903,1101].forEach((ix,k)=>{const a=AGS[ix];a.rt=+(.44+k*.02).toFixed(3);a.top3=+(.62+(k%4)*.05).toFixed(3);a.split=+(.31+(k%3)*.06).toFixed(3);a.peer=+(2.7+k*.16).toFixed(2);a.nf=+(.05+(k%3)*.03).toFixed(2);a.tpd=Math.round(a.tpd*1.8);a.com=Math.round(a.tpd*30*185*a.peer/1e3)*1e3;a.conf=true;});
+/* agents with elevated but unconfirmed signals: the watch list */
+for(let k=0;k<22;k++){const a=AGS[29+k*56];a.rt=+(.32+(k%5)*.025).toFixed(3);a.top3=+(.48+(k%4)*.04).toFixed(3);a.split=+(.2+(k%3)*.04).toFixed(3);a.peer=+(2+(k%6)*.1).toFixed(2);a.nf=+(.08+(k%3)*.04).toFixed(2);a.com=Math.round(a.tpd*30*185*a.peer/1e3)*1e3;}
+AGS.forEach(a=>{a.s=+sgm(-6.1+7.4*a.rt+3.4*a.top3+5.2*a.split+1.25*(a.peer-1)-1.6*a.nf).toFixed(3);});
+AGS.forEach(a=>{if(a.conf){a.st="Suspended";a.note="Commission gaming confirmed, under recovery";}else if(a.s>=.55)a.st="Watch";});
+const agById=id=>AGS.find(a=>a.id===id);
+
+/* rules engine */
+const ORULES=[
+ {id:"R-101",n:"Structuring near threshold",t:"struct",lg:"3+ cash-ins within {v}% below UGX 5m in 6 h",v:6,u:"%",mn:2,mx:20,dir:1,base:38,prec:.31,act:"Review",on:true},
+ {id:"R-102",n:"Rapid pass-through",t:"passthru",lg:"{v}%+ of an inflow sent out within 2 h",v:85,u:"%",mn:50,mx:100,dir:-1,base:54,prec:.27,act:"Review",on:true},
+ {id:"R-103",n:"Mule collector",t:"mule",lg:"{v}+ unrelated senders, then a full cash-out",v:8,u:"",mn:3,mx:20,dir:-1,base:21,prec:.44,act:"Review",on:true},
+ {id:"R-104",n:"SIM swap, then high value",t:"ato",lg:"Transfer above UGX {v}m within 24 h of a SIM swap",v:1,u:"m",mn:.2,mx:5,dir:-1,base:12,prec:.62,act:"Block",on:true},
+ {id:"R-105",n:"Velocity spike",t:"velocity",lg:"{v}x the wallet's 30-day hourly average",v:8,u:"x",mn:3,mx:20,dir:-1,base:66,prec:.18,act:"Review",on:true},
+ {id:"R-106",n:"New device, high value",t:"ato",lg:"First transaction on a new device above UGX {v}k",v:500,u:"k",mn:100,mx:2000,dir:-1,base:44,prec:.22,act:"Review",on:true},
+ {id:"R-107",n:"Dormant reactivation",t:"dormant",lg:"Idle {v}+ days, then inflow and cash-out the same day",v:180,u:" days",mn:60,mx:365,dir:-1,base:9,prec:.35,act:"Review",on:true},
+ {id:"R-108",n:"Agent round-tripping",t:"gaming",lg:"Round-trip share above {v}% of agent volume",v:30,u:"%",mn:10,mx:60,dir:-1,base:7,prec:.57,act:"Review",on:true},
+ {id:"R-109",n:"Sanctions name match",t:"sanc",lg:"Jaro-Winkler score at or above 0.{v}",v:88,u:"",mn:70,mx:99,dir:-1,base:5,prec:.12,act:"Block",on:true},
+ {id:"R-110",n:"Watch-listed agent exposure",t:"gaming",lg:"Cash-out above UGX {v}k at an agent on watch",v:300,u:"k",mn:50,mx:2000,dir:-1,base:17,prec:.29,act:"Review",on:true},
+ {id:"R-111",n:"Refund scam pattern",t:"scam",lg:"Reversal request within {v} min of an inbound transfer",v:30,u:" min",mn:5,mx:120,dir:1,base:14,prec:.41,act:"Review",on:true},
+ {id:"R-112",n:"Large cash transaction",t:"lctr",lg:"Cash at or above UGX {v}m (demo threshold)",v:20,u:"m",mn:5,mx:50,dir:-1,base:6,prec:1,act:"Report",on:true},
+ {id:"R-113",n:"PEP unusual inflow",t:"pep",lg:"PEP inflow above {v}x declared monthly income",v:3,u:"x",mn:1,mx:10,dir:-1,base:4,prec:.38,act:"Review",on:true}
+];
+ORULES.forEach(r=>{r.v0=r.v;});
+const ruleEst=r=>r.on?Math.max(0,Math.round(r.base*Math.pow(r.v/r.v0,r.dir*1.3))):0;
+const rulePrec=r=>r.prec>=1?1:clamp(r.prec*Math.pow(r.v0/r.v,r.dir*.55),.02,.95);
+const ruleById=id=>ORULES.find(r=>r.id===id);
+
+/* alerts */
+const ASTAT=["New","Assigned","In review","Escalated","Closed: false positive","Closed: true positive"];
+const OWNERS=["You","Analyst, day shift","Analyst, night shift","Team lead"];
+const OA=[];
+const TYPW=[["velocity",.16],["passthru",.14],["struct",.11],["ato",.11],["mule",.10],["scam",.09],["gaming",.08],["dormant",.06],["lctr",.06],["pep",.05],["sanc",.04]];
+const hiAgents=AGS.filter(a=>a.st!=="Active").sort((x,y)=>y.s-x.s);
+for(let i=0;i<78;i++){
+  const t=wpk(TYPW),ag=t==="gaming"?hiAgents[i%hiAgents.length]:null;
+  const sc=+clamp(t==="sanc"?.58+PR()*.38:.55+Math.pow(PR(),.7)*.44,.5,.995).toFixed(3);
+  const created=T0-Math.pow(PR(),1.4)*30*HR;
+  const age=(T0-created)/HR;
+  let st=wpk(age<3?[["New",.7],["Assigned",.2],["In review",.1]]:[["New",.22],["Assigned",.18],["In review",.2],["Escalated",.12],["Closed: false positive",.22],["Closed: true positive",.06]]);
+  const a={id:"AL-"+(41260+i),t,sc,pri:sc>=.85?"P1":sc>=.7?"P2":"P3",ent:ag?ag.id:"W-"+(300000+Math.floor(PR()*600000)),etype:ag?"Agent":"Wallet",
+    d:ag?ag.d:wpk(DIST),amt:Math.round(clamp(lnrm(15,.85),3e5,9e7)/1e3)*1e3,created,st,own:st==="New"?null:pk(OWNERS),
+    kyc:wpk([["Tier 1",.55],["Tier 2",.35],["Tier 3",.10]]),wage:Math.round(clamp(lnrm(5.2,1.1),3,2900)),dev:1+Math.floor(Math.pow(PR(),3)*4),
+    notes:[],hist:[],seed:1000+i,rule:TYP[t].r};
+  a.hist.push([created,"Raised by "+a.rule+" ("+TYP[t].n+") at score "+sc.toFixed(2)]);
+  if(a.own)a.hist.push([created+HR*.3,"Assigned to "+a.own]);
+  if(st.startsWith("Closed"))a.hist.push([created+HR*1.8,st+" by "+a.own]);
+  OA.push(a);
+}
+OA.sort((x,y)=>y.created-x.created);
+const alById=id=>OA.find(a=>a.id===id);
+const isOpen=a=>!a.st.startsWith("Closed");
+const SLA={P1:4,P2:24,P3:72};
+const slaUse=a=>((Date.now()-a.created)/HR)/SLA[a.pri];
+
+/* cases */
+const STAGES=["New","Triage","Investigating","With MLCO","STR filed","Closed"];
+const OC=[];
+OA.filter(a=>a.st==="Escalated"||a.st==="Closed: true positive").forEach((a,i)=>{
+  const stg=a.st==="Closed: true positive"?(i%2?4:5):[0,1,2,2,3,3][i%6];
+  OC.push({id:"CS-"+(26040+i),sub:a.ent,etype:a.etype,t:a.t,amt:a.amt*(1+Math.floor(PR()*3)),opened:a.created+HR,stage:stg,own:a.own||"You",alerts:[a.id],log:[[a.created+HR,"Case opened from "+a.id]],str:null});
+});
+const STRS=[];
+for(let i=0;i<8;i++){const t=pk(["mule","ato","struct","passthru","scam","gaming","pep"]);STRS.push({ref:"UG-STR-2026-"+String(10412+i*37).padStart(5,"0"),cs:"CS-"+(25890+i*11),sub:t==="gaming"?pk(hiAgents).id:"W-"+(300000+Math.floor(PR()*600000)),t,amt:Math.round(lnrm(16,.7)/1e4)*1e4,date:T0-(3+i*4.3)*DAY,st:i===0?"Submitted":"Acknowledged"});}
+OC.forEach(c=>{if(c.stage>=4){const s=STRS[OC.indexOf(c)%STRS.length];c.str=s.ref;}});
+const csById=id=>OC.find(c=>c.id===id);
+
+/* large cash, reconciliation, returns, EDD */
+const LCTR=[];for(let i=0;i<10;i++){LCTR.push({d:T0-(i*2.6+.4)*DAY,ent:PR()<.3?pk(AGS).id:"W-"+(300000+Math.floor(PR()*600000)),ty:pk(["Cash-in","Cash-out"]),amt:Math.round((20+Math.pow(PR(),1.8)*48)*1e5)*1e4,dist:wpk(DIST),ref:"UG-LCT-2026-"+(3310+i*7),st:i<2?"Pending":"Filed"});}
+const RECON=[];{let em=38.2e9;for(let i=13;i>=0;i--){em+=gss()*3.1e8+4e7;const tr=Math.round((em+gss()*9e5)/1e3)*1e3,tx=Math.round(gss()*4.2e7/1e3)*1e3;let v=Math.round((tr+tx-em)/1e3)*1e3;let st="Reconciled",why="Balances agree after items in transit";
+  if(i===5){v=-1240000;st="Shortfall resolved";why="Late bank settlement of a merchant batch; cleared the next morning";}
+  else if(i===9){v=310000;st="Surplus investigated";why="Duplicate bank credit; reversed by the bank";}
+  else v=0;
+  RECON.push({d:T0-i*DAY,em,tr:Math.round(em+v-tx),tx,v,st,why});}}
+const RETURNS=[["Monthly fraud and incident return","Bank of Uganda","Monthly",12,"Draft"],["Quarterly AML/CFT compliance report","Financial Intelligence Authority","Quarterly",23,"Not started"],["Daily trust account reconciliation","Internal, shared with BoU on request","Daily",0,"Done today"],["Suspicious transaction reports","FIA via goAML","As identified",null,"Ongoing"],["Large cash transaction reports","FIA via goAML","As they occur",null,"Ongoing"],["Board risk committee pack","Internal","Monthly",19,"Not started"],["Agent network risk review","Internal","Monthly",6,"In progress"]];
+const EDD=[];const EREASONS=[["Domestic PEP","Individual"],["High monthly volume vs profile","Sole trader"],["Border district cross-border flows","Sole trader"],["Adverse media hit","Individual"],["Cash-intensive business","Company"],["NGO with foreign funding","NGO"],["Foreign PEP associate","Individual"]];
+for(let i=0;i<16;i++){const r=pk(EREASONS);const due=T0+(Math.floor(PR()*50)-14)*DAY;EDD.push({w:"W-"+(300000+Math.floor(PR()*600000)),why:r[0],seg:r[1],sc:+(0.55+PR()*.42).toFixed(2),last:due-(180+Math.floor(PR()*20))*DAY,due,st:due<T0?"Overdue":(due-T0<14*DAY?"Due soon":"Scheduled"),d:wpk(DIST)});}
+EDD.sort((x,y)=>x.due-y.due);
+
+/* models */
+const MODELS=[
+ {id:"gaming",n:"Agent gaming detector",algo:"LightGBM",ver:"v3.2",role:"Champion",auc:.947,prauc:.612,pab:.58,rab:.71,trained:"14 Sep 2026",win:"Jan 2025 to Aug 2026, out-of-time test on Sep 2026",label:"Agent confirmed gaming by investigation",cad:"Monthly",
+  fi:[["round_trip_share",.24],["top3_customer_share",.18],["net_flow_ratio",.14],["commission_vs_peers",.13],["split_deposit_rate",.11],["txn_vs_own_baseline",.09],["new_customer_rate",.06],["night_txn_share",.05]],
+  psi:[["round_trip_share",.04],["top3_customer_share",.07],["net_flow_ratio",.12],["commission_vs_peers",.21],["split_deposit_rate",.05],["txn_vs_own_baseline",.03]],
+  cal:[[.05,.04],[.15,.13],[.25,.22],[.35,.31],[.45,.43],[.55,.51],[.65,.6],[.75,.69],[.85,.8],[.95,.88]]},
+ {id:"txn",n:"Transaction risk score",algo:"XGBoost",ver:"v5.0",role:"Champion",auc:.931,prauc:.448,pab:.41,rab:.66,trained:"2 Oct 2026",win:"Rolling 12 months, out-of-time test on the latest month",label:"Transaction later confirmed as fraud",cad:"Fortnightly",
+  fi:[["amount_vs_90d_max",.19],["sim_swap_hours",.16],["new_device",.14],["recipient_first_seen",.12],["velocity_1h",.11],["hour_of_day",.08],["agent_risk_score",.08],["wallet_age_days",.07]],
+  psi:[["amount_vs_90d_max",.06],["sim_swap_hours",.02],["new_device",.09],["recipient_first_seen",.14],["velocity_1h",.27],["wallet_age_days",.04]],
+  cal:[[.05,.05],[.15,.14],[.25,.24],[.35,.33],[.45,.44],[.55,.55],[.65,.63],[.75,.72],[.85,.83],[.95,.9]]},
+ {id:"ato",n:"Account takeover detector",algo:"Logistic regression with rules",ver:"v2.1",role:"Champion",auc:.912,prauc:.523,pab:.62,rab:.58,trained:"21 Aug 2026",win:"Jul 2024 to Jul 2026",label:"Customer-reported takeover, verified",cad:"Quarterly",
+  fi:[["sim_swap_hours",.31],["pin_reset_new_device",.22],["first_high_value",.17],["device_count_30d",.11],["location_change",.1],["hour_of_day",.09]],
+  psi:[["sim_swap_hours",.03],["pin_reset_new_device",.05],["first_high_value",.08],["device_count_30d",.11],["location_change",.06]],
+  cal:[[.05,.06],[.15,.16],[.25,.27],[.35,.36],[.45,.47],[.55,.56],[.65,.66],[.75,.76],[.85,.84],[.95,.91]]},
+ {id:"mule",n:"Mule account classifier",algo:"Graph features and CatBoost",ver:"v1.4",role:"Challenger",auc:.889,prauc:.391,pab:.36,rab:.52,trained:"28 Sep 2026",win:"Jan 2025 to Aug 2026, shadow mode since 1 Sep",label:"Wallet confirmed as a money mule",cad:"Monthly",
+  fi:[["unique_senders_7d",.22],["shared_device_degree",.2],["cashout_distance_km",.15],["inflow_outflow_lag",.14],["sender_fraud_links",.12],["wallet_age_days",.09],["kyc_tier",.08]],
+  psi:[["unique_senders_7d",.08],["shared_device_degree",.13],["cashout_distance_km",.05],["inflow_outflow_lag",.04],["sender_fraud_links",.31]],
+  cal:[[.05,.07],[.15,.18],[.25,.29],[.35,.39],[.45,.48],[.55,.57],[.65,.63],[.75,.7],[.85,.77],[.95,.84]]}
+];
+
+/* audit log */
+const AUD=[];
+[[-6.2*HR,"System","Monitoring","Sanctions lists refreshed (UN, OFAC, EU, UK OFSI)",""],[-5.1*HR,"System","ML Studio","Agent gaming detector v3.2 scored 1,240 agents",""],[-4.4*HR,"System","Reporting","Daily trust account reconciliation completed","Reconciled"],[-2.2*HR,"Analyst, night shift","Alerts & Cases","Closed alert as false positive",OA[OA.length-1].id],[-1.1*HR,"Team lead","Monitoring","Rule R-105 threshold reviewed","no change"]].forEach(r=>AUD.push({t:T0+r[0],u:r[1],env:r[2],a:r[3],o:r[4]}));
+AUD.sort((x,y)=>y.t-x.t);
+
+
+/* ================= FinCrime portal: interface ================= */
+const OS={on:false,role:"Analyst",env:"command",tabs:{monitor:"live",alerts:"queue",agents:"overview",aml:"cra",reports:"str",ml:"models"},macVis:true,paused:false,
+  af:{pri:"all",own:"all",typ:"all",st:"open",q:""},agf:{q:"",st:"all",d:"all",sig:"all",sort:"s",dir:-1,n:40},lf:{dec:"all",ch:"all"},audf:"All",selModel:"gaming",explainId:null,
+  gx:false,gsel:"hub",str:{step:1,cs:null,flags:[],narr:"",period:""},calc:{type:0,occ:6,geo:0,prod:6,vol:8,pep:0,adv:0},full:false};
+const ENVS=[["command","Command Centre","Operations"],["monitor","Transaction Monitoring","Operations"],["alerts","Alerts & Cases","Operations"],["links","Link Analysis","Operations"],["agents","Agent Network","Network and customers"],["aml","AML & KYC","Network and customers"],["reports","Regulatory Reporting","Compliance"],["audit","Audit Log","Compliance"],["ml","ML Studio","Analytics"]];
+const ENV_DESC={command:"Today's position across transactions, alerts, losses and agents.",monitor:"Every transaction scored by rules and models, with the decision it gets.",alerts:"Work the queue, investigate, and take cases from triage to an STR.",links:"Follow money between wallets, agents and shared devices.",agents:"Risk across 1,240 agents: commission gaming, float and districts.",aml:"Customer risk, enhanced due diligence, sanctions and typologies.",reports:"STRs on goAML, large cash, trust reconciliation and returns.",audit:"Every action taken in this session, for review.",ml:"Model performance, drift, thresholds and explanations."};
+const envName=k=>(ENVS.find(e=>e[0]===k)||["",""])[1];
+const IC={command:'<path d="M2 2h5v5H2zM9 2h5v5H9zM2 9h5v5H2zM9 9h5v5H9z"/>',monitor:'<path d="M1 8h3l2-5 3 10 2-5h4"/>',alerts:'<path d="M4 11V7a4 4 0 0 1 8 0v4l1.5 2h-11zM6.5 14h3"/>',links:'<circle cx="3.5" cy="8" r="2"/><circle cx="12.5" cy="3.5" r="2"/><circle cx="12.5" cy="12.5" r="2"/><path d="M5.3 7.1l5.4-2.7M5.3 8.9l5.4 2.7"/>',
+  agents:'<path d="M2 6l1-3h10l1 3M2 6v8h12V6M2 6h12M6 14v-4h4v4"/>',aml:'<path d="M8 1.5l5.5 2.2v4c0 3.3-2.4 5.8-5.5 6.8-3.1-1-5.5-3.5-5.5-6.8v-4z"/><path d="M5.5 8l1.8 1.8L10.8 6"/>',reports:'<path d="M4 1.5h5.5l3 3v10h-8.5zM9 1.5v3.5h3.5M6 8.5h5M6 11h5"/>',audit:'<path d="M3 3h10M3 8h10M3 13h6M12 11.5l1.3 1.3 2-2.3"/>',
+  ml:'<rect x="3.5" y="3.5" width="9" height="9" rx="1.5"/><path d="M6 1v2.5M10 1v2.5M6 12.5V15M10 12.5V15M1 6h2.5M1 10h2.5M12.5 6H15M12.5 10H15"/>'};
+const icon=(k,s)=>'<svg width="'+(s||16)+'" height="'+(s||16)+'" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+IC[k]+'</svg>';
+const kp=(l,v,s,c)=>'<div class="kpi2"><span>'+l+'</span><b>'+v+'</b>'+(s?'<small class="'+(c||"")+'">'+s+'</small>':"")+'</div>';
+const ch=(t,c)=>'<span class="chip2 '+c+'">'+t+'</span>';
+const priB=p=>'<span class="pri '+p.toLowerCase()+'">'+p+'</span>';
+const ST_CLS={"New":"cs-acc","Assigned":"cs-mut","In review":"cs-amb","Escalated":"cs-bad","Closed: false positive":"cs-mut","Closed: true positive":"cs-ok"};
+const stCh=s=>ch(s.replace("Closed: ","Closed, "),ST_CLS[s]||"cs-mut");
+const scB=s=>'<span class="scb"><i><b style="width:'+(s*100).toFixed(0)+'%;background:'+(s>=.85?"var(--bad)":s>=.7?"var(--amber)":"var(--c1)")+'"></b></i>'+s.toFixed(2)+'</span>';
+const slaCh=a=>{if(!isOpen(a))return'<span class="muted">Closed</span>';const u=slaUse(a);return u>=1?ch("Breached","cs-bad"):u>=.75?ch("At risk","cs-amb"):ch(Math.round((1-u)*SLA[a.pri])+"h left","cs-ok");};
+const AGST={Active:"cs-ok",Watch:"cs-amb",Suspended:"cs-bad"};
+const who=()=>"Martin M. ("+OS.role+")";
+function audit(env,a,o){AUD.unshift({t:Date.now(),u:OS.on?who():"System",env,a,o:o||""});if(OS.env==="audit"&&OS.on)renderEnv();}
+
+/* ---------- charts ---------- */
+function nice(v){if(v<=0)return 1;const p=Math.pow(10,Math.floor(Math.log10(v))),m=v/p;return(m<=1?1:m<=2?2:m<=2.5?2.5:m<=5?5:10)*p;}
+function tk(max){let st=nice(Math.max(max,1e-9)/5);if(max>=5&&st<10&&st%1)st=Math.floor(st);const n=Math.max(1,Math.ceil(max/st-1e-9));return[st*n,st,n];}
+function chV(vals,labs,o){o=o||{};const W=o.w||560,Hh=o.h||160,pl=40,pr=8,pt=10,pb=22,TK=tk(o.mx||Math.max.apply(null,vals)),mx=TK[0],bw=(W-pl-pr)/vals.length,f=o.f||fmt;
+  let s='<svg viewBox="0 0 '+W+' '+Hh+'" role="img" aria-label="'+esc(o.t||"chart")+'">';
+  for(let k=0;k<=TK[2];k++){const y=Hh-pb-(Hh-pb-pt)*k/TK[2];s+='<line class="gr2" x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y+'" y2="'+y+'"/><text class="tx2" x="'+(pl-5)+'" y="'+(y+3)+'" text-anchor="end">'+f(TK[1]*k)+'</text>';}
+  vals.forEach((v,i)=>{const h=(Hh-pb-pt)*v/mx,x=pl+i*bw+bw*.14,w=bw*.72;s+='<rect class="'+((o.hi&&o.hi(i))?"mk3":"mk1")+' hov" x="'+x.toFixed(1)+'" y="'+(Hh-pb-h).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+Math.max(0,h).toFixed(1)+'" rx="2"><title>'+esc(labs[i])+': '+f(v)+'</title></rect>';
+    if(i%(o.ev||1)===0)s+='<text class="tx2" x="'+(o.edge?pl+i*bw:x+w/2).toFixed(1)+'" y="'+(Hh-7)+'" text-anchor="middle">'+esc(labs[i])+'</text>';});
+  if(o.endL)s+='<text class="tx2" x="'+(W-pr)+'" y="'+(Hh-7)+'" text-anchor="end">'+esc(o.endL)+'</text>';
+  if(o.mark!=null){const x=pl+(W-pl-pr)*o.mark;s+='<line x1="'+x+'" x2="'+x+'" y1="'+pt+'" y2="'+(Hh-pb)+'" stroke="var(--bad)" stroke-width="1.5" stroke-dasharray="3 3"/><text class="tx2" x="'+(x+4)+'" y="'+(pt+9)+'" style="fill:var(--bad)">'+esc(o.markL||"")+'</text>';}
+  return s+'<line class="ax2" x1="'+pl+'" x2="'+(W-pr)+'" y1="'+(Hh-pb)+'" y2="'+(Hh-pb)+'"/></svg>';}
+function chH(rows,o){o=o||{};const W=o.w||560,rh=o.rh||24,lw=o.lw||150,vw=o.vw||96,Hh=rows.length*rh+4,mx=o.mx||Math.max.apply(null,rows.map(r=>r[1])),f=o.f||fmt;
+  let s='<svg viewBox="0 0 '+W+' '+Hh+'" role="img" aria-label="'+esc(o.t||"chart")+'">';
+  rows.forEach((r,i)=>{const y=i*rh+2,bw=(W-lw-vw)*Math.max(0,r[1])/mx;s+='<text class="tx2b" x="'+(lw-8)+'" y="'+(y+rh/2+3.5)+'" text-anchor="end">'+esc(r[0])+'</text><rect class="'+(r[2]||"mk1")+' hov" x="'+lw+'" y="'+(y+5)+'" width="'+Math.max(2,bw).toFixed(1)+'" height="'+(rh-10)+'" rx="2"><title>'+esc(r[0])+': '+f(r[1])+'</title></rect><text class="tx2" x="'+(lw+bw+6).toFixed(1)+'" y="'+(y+rh/2+3.5)+'">'+f(r[1])+(r[3]?" · "+esc(r[3]):"")+'</text>';});
+  return s+'</svg>';}
+function chLine(series,xl,o){o=o||{};const W=o.w||560,Hh=o.h||170,pl=44,pr=86,pt=10,pb=22,n=xl.length;let mx=0;series.forEach(s=>s.v.forEach(v=>{mx=Math.max(mx,v);}));const TK=tk(mx);mx=TK[0];const f=o.f||fmt;
+  const X=i=>pl+(W-pl-pr)*i/(n-1),Y=v=>Hh-pb-(Hh-pb-pt)*v/mx;let s='<svg viewBox="0 0 '+W+' '+Hh+'" role="img" aria-label="'+esc(o.t||"chart")+'">';
+  for(let k=0;k<=TK[2];k++){const y=Y(TK[1]*k);s+='<line class="gr2" x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y+'" y2="'+y+'"/><text class="tx2" x="'+(pl-5)+'" y="'+(y+3)+'" text-anchor="end">'+f(TK[1]*k)+'</text>';}
+  xl.forEach((l,i)=>{if(i%(o.ev||5)===0||i===n-1)s+='<text class="tx2" x="'+X(i).toFixed(1)+'" y="'+(Hh-7)+'" text-anchor="middle">'+esc(l)+'</text>';});
+  series.forEach(se=>{s+='<path class="'+se.c+'" d="'+se.v.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join("")+'"/>';const lv=se.v[n-1];s+='<circle cx="'+X(n-1).toFixed(1)+'" cy="'+Y(lv).toFixed(1)+'" r="4" class="'+se.c.replace("ln","mk")+'" stroke="var(--surface)" stroke-width="2"><title>'+esc(se.n)+': '+f(lv)+'</title></circle><text class="tx2b" x="'+(X(n-1)+8).toFixed(1)+'" y="'+(Y(lv)+(se.dy||0)+3.5).toFixed(1)+'">'+esc(se.n)+'</text>';});
+  return s+'<line class="ax2" x1="'+pl+'" x2="'+(W-pr)+'" y1="'+(Hh-pb)+'" y2="'+(Hh-pb)+'"/></svg>';}
+function chCal(pts){const W=300,Hh=220,pl=36,pr=10,pt=10,pb=30,X=v=>pl+(W-pl-pr)*v,Y=v=>Hh-pb-(Hh-pb-pt)*v;let s='<svg viewBox="0 0 '+W+' '+Hh+'" role="img" aria-label="Calibration">';
+  [0,.25,.5,.75,1].forEach(v=>{s+='<line class="gr2" x1="'+pl+'" x2="'+(W-pr)+'" y1="'+Y(v)+'" y2="'+Y(v)+'"/><text class="tx2" x="'+(pl-5)+'" y="'+(Y(v)+3)+'" text-anchor="end">'+v.toFixed(2)+'</text><text class="tx2" x="'+X(v)+'" y="'+(Hh-pb+13)+'" text-anchor="middle">'+v.toFixed(2)+'</text>';});
+  s+='<line x1="'+X(0)+'" y1="'+Y(0)+'" x2="'+X(1)+'" y2="'+Y(1)+'" stroke="var(--muted)" stroke-dasharray="4 4"/><text class="tx2" x="'+X(.62)+'" y="'+(Y(.72)-4)+'">perfect calibration</text>';
+  s+='<path class="ln1" d="'+pts.map((p,i)=>(i?"L":"M")+X(p[0]).toFixed(1)+" "+Y(p[1]).toFixed(1)).join("")+'"/>';
+  pts.forEach(p=>{s+='<circle class="mk1" cx="'+X(p[0]).toFixed(1)+'" cy="'+Y(p[1]).toFixed(1)+'" r="4" stroke="var(--surface)" stroke-width="2"><title>Predicted '+p[0].toFixed(2)+', observed '+p[1].toFixed(2)+'</title></circle>';});
+  return s+'<text class="tx2" x="'+((pl+W-pr)/2)+'" y="'+(Hh-3)+'" text-anchor="middle">predicted probability</text></svg>';}
+function chWF(rows,base){const W=560,lw=190,vw=60,rh=24,Hh=(rows.length+2)*rh+30;let cum=base,lo=base,hi=base;const steps=rows.map(r=>{const a=cum;cum+=r[1];lo=Math.min(lo,cum);hi=Math.max(hi,cum);return[r[0],a,cum,r[1]];});
+  lo=Math.min(lo,lgt(.01))-.2;hi=Math.max(hi,lgt(.99))+.2;const X=v=>lw+(W-lw-vw)*(v-lo)/(hi-lo);let s='<svg viewBox="0 0 '+W+' '+Hh+'" role="img" aria-label="Score explanation">';
+  [.01,.05,.25,.5,.75,.95,.99].forEach(p=>{const x=X(lgt(p));s+='<line class="gr2" x1="'+x+'" x2="'+x+'" y1="4" y2="'+(Hh-24)+'"/><text class="tx2" x="'+x+'" y="'+(Hh-10)+'" text-anchor="middle">'+(p*100)+'%</text>';});
+  let y=4;s+='<text class="tx2b" x="'+(lw-8)+'" y="'+(y+rh/2+3)+'" text-anchor="end">Base rate</text><rect x="'+(X(base)-1.5)+'" y="'+(y+4)+'" width="3" height="'+(rh-8)+'" fill="var(--ink)"/><text class="tx2" x="'+(X(base)+6)+'" y="'+(y+rh/2+3)+'">'+pc(sgm(base))+'</text>';
+  steps.forEach(st=>{y+=rh;const x1=X(Math.min(st[1],st[2])),x2=X(Math.max(st[1],st[2]));s+='<text class="tx2b" x="'+(lw-8)+'" y="'+(y+rh/2+3)+'" text-anchor="end">'+esc(st[0])+'</text><rect x="'+x1.toFixed(1)+'" y="'+(y+5)+'" width="'+Math.max(2,x2-x1).toFixed(1)+'" height="'+(rh-10)+'" rx="2" fill="'+(st[3]>0?"var(--bad)":"var(--ok)")+'"><title>'+esc(st[0])+': '+(st[3]>0?"+":"")+st[3].toFixed(2)+' log-odds</title></rect><text class="tx2" x="'+(x2+5).toFixed(1)+'" y="'+(y+rh/2+3)+'">'+(st[3]>0?"+":"−")+Math.abs(st[3]).toFixed(2)+'</text>';});
+  y+=rh;s+='<text class="tx2b" x="'+(lw-8)+'" y="'+(y+rh/2+3)+'" text-anchor="end" style="font-weight:600">Final score</text><rect x="'+(X(cum)-1.5)+'" y="'+(y+4)+'" width="3" height="'+(rh-8)+'" fill="var(--ink)"/><text class="tx2" x="'+(X(cum)+6)+'" y="'+(y+rh/2+3)+'" style="fill:var(--ink)">'+sgm(cum).toFixed(3)+'</text>';
+  return s+'</svg>';}
+
+/* ---------- per-alert synthetic detail ---------- */
+const FEAT={ato:[["SIM swap before transfer",1],["PIN reset on a new device",.7],["Amount vs 90-day max",.6],["Night-time activity",.25],["Long account tenure",-.3]],
+  struct:[["Deposits within 6% of UGX 5m",1],["Three agents in one day",.6],["Onward transfer next morning",.5],["Declared income",-.25]],
+  passthru:[["96% moved out within 2 h",1],["Wallet age under 30 days",.55],["Receivers share a device",.6],["Balance history",-.2]],
+  mule:[["Unique senders in 7 days",1],["Cash-out distance from senders",.6],["Senders linked to fraud reports",.7],["KYC tier",.2],["Wallet tenure",-.25]],
+  gaming:[["Round-trip share",1],["Top-3 customer concentration",.7],["Commission vs peers",.6],["Split deposits",.45],["Agent tenure",-.3]],
+  velocity:[["Transactions in the last hour",1],["First-time recipients",.6],["Similar small amounts",.35],["Usual device",-.35]],
+  dormant:[["Months since last activity",1],["Same-day inflow and cash-out",.7],["Expired KYC",.35],["Known counterparty",-.2]],
+  scam:[["Reversal request after inflow",1],["Caller reported by others",.6],["Customer age on network",.4],["Low transfer amount",-.3]],
+  lctr:[["Cash amount vs threshold",1],["Unusual for profile",.4],["Repeat large cash",.3],["Business account",-.3]],
+  pep:[["Inflow vs declared income",1],["Third-party funding",.55],["Round-number transfers",.35],["Documented source of funds",-.4]],
+  sanc:[["Name similarity",1],["Nationality match",.45],["Date of birth partial match",.3],["Different middle name",-.45]]};
+function factorsFor(a){const base=lgt(.02),tgt=lgt(a.sc)-base,fs=FEAT[a.t]||FEAT.velocity;const pos=fs.filter(f=>f[1]>0).reduce((s,f)=>s+f[1],0),neg=fs.filter(f=>f[1]<0).reduce((s,f)=>s+f[1],0);const k=(tgt-neg)/pos;return fs.map(f=>[f[0],+(f[1]>0?f[1]*k:f[1]).toFixed(2)]);}
+function txnsFor(a){const r=rng(a.seed),rows=[],t0=a.created;const cp=()=>"W-"+(300000+Math.floor(r()*600000)),ag=()=>pk2(r,AGS).id;
+  const add=(dt,ty,c,dir,amt,chn)=>rows.push([t0-dt*60000,ty,c,dir,Math.round(amt/500)*500,chn]);
+  const sh={struct:()=>{for(let i=0;i<5;i++)add(200-i*38,"Cash-in",ag(),"In",4.75e6+r()*2.2e5,"Agent");add(-30,"P2P transfer",cp(),"Out",a.amt*.9,"USSD");},
+    passthru:()=>{add(140,"P2P transfer",cp(),"In",a.amt,"App");for(let i=0;i<4;i++)add(118-i*9,"P2P transfer",cp(),"Out",a.amt*(.18+r()*.1),"App");},
+    mule:()=>{for(let i=0;i<6;i++)add(360-i*55,"P2P transfer",cp(),"In",3e5+r()*6e5,"USSD");add(20,"Cash-out",ag(),"Out",a.amt*.95,"Agent");},
+    ato:()=>{add(150,"SIM swap","Network event","-",0,"Telco");add(95,"PIN reset","New device","-",0,"USSD");add(60,"P2P transfer",cp(),"Out",a.amt*.6,"App");add(42,"P2P transfer",cp(),"Out",a.amt*.4,"App");},
+    gaming:()=>{for(let i=0;i<3;i++){const c=cp();add(300-i*80,"Cash-in",c,"In",8e5+r()*4e5,"Agent");add(290-i*80,"Cash-out",c,"Out",7.8e5+r()*4e5,"Agent");}},
+    velocity:()=>{for(let i=0;i<7;i++)add(58-i*7,"P2P transfer",cp(),"Out",2e4+r()*3e4,"USSD");},
+    dormant:()=>{add(300,"P2P transfer",cp(),"In",a.amt,"App");add(250,"Cash-out",ag(),"Out",a.amt*.97,"Agent");},
+    scam:()=>{add(80,"P2P transfer",cp(),"In",a.amt*.3,"USSD");add(62,"Reversal request","Customer care","-",a.amt*.3,"Call");add(40,"P2P transfer",cp(),"Out",a.amt*.3,"USSD");},
+    lctr:()=>{add(30,"Cash-in",ag(),"In",a.amt+2e7,"Agent");},
+    pep:()=>{add(900,"Bank transfer","Company account","In",a.amt,"Bank");add(500,"P2P transfer",cp(),"Out",a.amt*.4,"App");add(300,"P2P transfer",cp(),"Out",a.amt*.3,"App");},
+    sanc:()=>{add(120,"P2P transfer",cp(),"Out",a.amt*.5,"App");add(60,"P2P transfer",cp(),"In",a.amt*.2,"App");}};
+  (sh[a.t]||sh.velocity)();while(rows.length<6)add(1500+r()*4000,"Bill payment","Utility","Out",3e4+r()*1e5,"USSD");return rows.sort((x,y)=>y[0]-x[0]);}
+const pk2=(r,arr)=>arr[Math.floor(r()*arr.length)];
+function actFor(a){const r=rng(a.seed+7),v=[];for(let i=0;i<30;i++){let b=2+Math.floor(r()*4);if(i>=27)b+=6+Math.floor(r()*10)*(a.sc>.8?1.5:1);v.push(Math.round(b));}return v;}
+
+/* ---------- live transactions ---------- */
+const TXT=[["P2P transfer",.34,10.6,1],["Cash-out",.22,11.4,.9],["Cash-in",.18,11.3,.9],["Airtime",.1,8.5,.6],["Bill payment",.07,11,.7],["Merchant payment",.06,10,.9],["Bank transfer",.03,12.6,.8]];
+const LIVE=[];let liveN=0,liveRev=0,liveBlk=0,liveRep=0,lastAuto=0;
+function mrnd(){let u=0;while(!u)u=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*Math.random());}
+function mkTx(){const M=Math.random;let u=M(),ti=0;for(;ti<TXT.length;ti++){u-=TXT[ti][1];if(u<=0)break;}const T=TXT[Math.min(ti,TXT.length-1)],ty=T[0];
+  const cash=ty==="Cash-in"||ty==="Cash-out",ag=cash?AGS[Math.floor(M()*AGS.length)]:null;let amt=Math.exp(T[2]+T[3]*mrnd());
+  const fl={nd:M()<.035,ss:M()<.007,vel:M()<.02,dorm:M()<.004,near:ty==="Cash-in"&&M()<.012,wag:!!ag&&ag.st!=="Active",scam:ty==="P2P transfer"&&M()<.006,big:cash&&M()<.004,night:+kparts().hour<5};
+  if(fl.near)amt=5e6*(1-M()*.058);if(fl.big)amt=2e7+M()*3.2e7;if(fl.ss)amt=Math.max(amt,1.2e6+M()*4e6);amt=Math.max(500,Math.round(amt/100)*100);
+  const z=-4.6+1.05*Math.log10(amt/4e4)+2.1*fl.nd+3.4*fl.ss+1*fl.night+1.9*fl.vel+2.6*fl.near+2.1*fl.dorm+1.5*fl.wag+1.9*fl.scam+.35*mrnd();const s=+sgm(z).toFixed(3);
+  const R=id=>ruleById(id),hits=[];
+  if(fl.near&&R("R-101").on)hits.push("R-101");if(fl.ss&&R("R-104").on&&amt>R("R-104").v*1e6)hits.push("R-104");if(fl.vel&&R("R-105").on)hits.push("R-105");
+  if(fl.nd&&R("R-106").on&&amt>R("R-106").v*1e3)hits.push("R-106");if(fl.dorm&&R("R-107").on)hits.push("R-107");if(fl.wag&&ty==="Cash-out"&&R("R-110").on&&amt>R("R-110").v*1e3)hits.push("R-110");
+  if(fl.scam&&R("R-111").on)hits.push("R-111");if(cash&&R("R-112").on&&amt>=R("R-112").v*1e6)hits.push("R-112");
+  let dec="Allow";if(hits.some(h=>R(h).act==="Block")||s>=.97)dec="Block";else if(s>=.6||hits.some(h=>R(h).act==="Review"))dec="Review";else if(hits.length)dec="Report";
+  return{id:"TX"+(Math.floor(M()*9e8)+1e8),t:Date.now(),ty,ch:cash?"Agent":(M()<.62?"USSD":"App"),amt,d:ag?ag.d:wpk(DIST),ag:ag?ag.id:null,w:"W-"+(300000+Math.floor(M()*600000)),s,hits,dec,fl};}
+for(let i=0;i<24;i++){const x=mkTx();x.t=Date.now()-(24-i)*900;LIVE.unshift(x);}
+const DEC_CLS={Allow:"cs-ok",Review:"cs-amb",Block:"cs-bad",Report:"cs-acc"};
+function txFromLive(x){const map={"R-101":"struct","R-104":"ato","R-105":"velocity","R-106":"ato","R-107":"dormant","R-110":"gaming","R-111":"scam","R-112":"lctr"};const t=map[x.hits[0]]||(x.fl.ss||x.fl.nd?"ato":"velocity");
+  const a={id:"AL-"+(41260+OA.length+Math.floor(Math.random()*20)+200),t,sc:Math.max(.6,x.s),pri:"P3",ent:x.w,etype:"Wallet",d:x.d,amt:x.amt,created:Date.now(),st:"New",own:null,kyc:"Tier 1",wage:30+Math.floor(Math.random()*900),dev:x.fl.nd?2:1,notes:[],hist:[[Date.now(),"Raised from live transaction "+x.id+(x.hits.length?" by "+x.hits.join(", "):" by the transaction risk model")]],seed:Math.floor(Math.random()*1e6),rule:x.hits[0]||"Model"};
+  a.pri=a.sc>=.85?"P1":a.sc>=.7?"P2":"P3";OA.unshift(a);return a;}
+
+/* ---------- shell ---------- */
+const osEl=$("#os");
+function txToday(){const o=kparts();const fr2=(+o.hour*60+ +o.minute)/1440;return Math.round(212400*Math.pow(fr2,1.08))+liveN;}
+function renderNav(){const open=OA.filter(isOpen).length,str=OC.filter(c=>c.stage===3).length,edd=EDD.filter(e=>e.st==="Overdue").length,watch=AGS.filter(a=>a.st==="Watch").length;
+  const nb={alerts:open,reports:str,aml:edd,agents:watch};let g="",h='<div class="brandmark"><i>E</i><div><b>'+OPERATOR+'</b><span>Financial crime portal</span></div></div>';
+  ENVS.forEach(e=>{if(e[2]!==g){g=e[2];h+='<div class="nav-g">'+g+'</div>';}h+='<button class="nav-i" data-env-open="'+e[0]+'"'+(OS.env===e[0]?' aria-current="page"':"")+' title="'+e[1]+'">'+icon(e[0])+'<span class="lbl">'+e[1]+'</span>'+(nb[e[0]]?'<span class="nb">'+nb[e[0]]+'</span>':"")+'</button>';});
+  $("#os-nav").innerHTML=h;
+  const p1=OA.filter(a=>isOpen(a)&&a.pri==="P1").length;$("#os-bell").innerHTML=icon("alerts",14)+(p1?'<span class="dotc">'+p1+'</span>':"");
+  $("#os-role").innerHTML='<span class="avatar" style="width:20px;height:20px;font-size:8.5px">MM</span><span class="lbl"><b>'+OS.role+'</b></span>';}
+function renderLaunch(){const o=kparts(),h=+o.hour,gr=h<12?"Good morning":h<17?"Good afternoon":"Good evening";const open=OA.filter(isOpen);
+  const stat={command:fmt(txToday())+" transactions today",monitor:ORULES.filter(r=>r.on).length+" rules live",alerts:open.length+" open alerts",links:"Mule ring under review",agents:AGS.filter(a=>a.st==="Watch").length+" agents on watch",aml:EDD.filter(e=>e.st==="Overdue").length+" EDD reviews overdue",reports:OC.filter(c=>c.stage===3).length+" cases awaiting an STR",audit:AUD.length+" entries",ml:MODELS.length+" models in production"};
+  $("#os-launch").innerHTML='<div class="launch-head"><div><h3>'+gr+', Martin</h3><p>'+OPERATOR+' is a fictional mobile money operator. Every number here is synthetic.</p></div><button class="obtn sec sm" data-act="logout">Sign out</button></div>'+
+   '<div class="strip">'+kp("Open alerts",fmt(open.length))+kp("P1 open",fmt(open.filter(a=>a.pri==="P1").length))+kp("Cases with MLCO",fmt(OC.filter(c=>c.stage===3).length))+kp("STRs this month","37")+kp("Agent gaming rate",pc(AGS.filter(a=>a.conf).length/AGS.length,2))+'</div>'+
+   '<div class="tiles">'+ENVS.map(e=>'<button class="tile" data-env-open="'+e[0]+'"><span class="ic">'+icon(e[0],18)+'</span><b>'+e[1]+'</b><span>'+ENV_DESC[e[0]]+'</span><em>'+stat[e[0]]+'</em></button>').join("")+'</div>';}
+function showView(v){$("#os-login").hidden=v!=="login";$("#os-launch").hidden=v!=="launch";$("#os-app").hidden=v!=="app";$("#os-path").textContent=v==="login"?"sign-in":v==="launch"?"home":OS.env+(OS.tabs[OS.env]?"/"+OS.tabs[OS.env]:"");}
+function osLogin(role,silent){OS.on=true;OS.role=role||"Analyst";audit("Portal","Signed in as "+OS.role);if(!silent){renderLaunch();showView("launch");}}
+function osLogout(){closeDrawer();audit("Portal","Signed out");OS.on=false;showView("login");}
+function osHome(){closeDrawer();renderLaunch();showView("launch");}
+function osOpen(env,tab){if(!OS.on)osLogin("Analyst",true);closeDrawer();OS.env=env;if(tab)OS.tabs[env]=tab;
+  $$("#os-page .env").forEach(s=>{s.hidden=s.dataset.env!==env;});
+  const t=OS.tabs[env];$$('#env-'+env+' .etab').forEach(p=>{p.hidden=t?p.dataset.tab!==t:false;});$$('#env-'+env+' .etabs button').forEach(b=>b.setAttribute("aria-selected",String(b.dataset.etab===t)));
+  $("#os-crumb").innerHTML=OPERATOR+' / <b>'+envName(env)+'</b>';renderNav();renderEnv();showView("app");$("#os-page").scrollTop=0;}
+function renderEnv(){const e=OS.env,t=OS.tabs[e];({command:rCommand,monitor:rMonitor,alerts:rAlerts,links:rLinks,agents:rAgents,aml:rAml,reports:rReports,audit:rAudit,ml:rMl}[e]||function(){})(t);paintAll();}
+function closeDrawer(){const d=$("#os-drawer");if(d){d.hidden=true;d.innerHTML="";}OS.drawer=null;}
+function drawer(kind,id,head,body,foot){const d=$("#os-drawer");OS.drawer=[kind,id];d.innerHTML='<div class="dr-h"><div>'+head+'</div><button class="dr-x" data-act="dclose" aria-label="Close">×</button></div><div class="dr-b">'+body+'</div>'+(foot?'<div class="dr-f">'+foot+'</div>':"");d.hidden=false;const x=d.querySelector(".dr-x");if(x)x.focus({preventScroll:true});}
+function refreshDrawer(){if(!OS.drawer)return;const k=OS.drawer[0],id=OS.drawer[1];({alert:alertDrawer,case:caseDrawer,agent:agentDrawer,tx:txDrawer,edd:eddDrawer,recon:reconDrawer}[k]||function(){})(id);}
+
+/* ---------- command centre ---------- */
+function rCommand(){const open=OA.filter(isOpen),p1=open.filter(a=>a.pri==="P1"),br=open.filter(a=>slaUse(a)>=1),tt=txToday();
+  const o=kparts(),hh=+o.hour,hr=rng(99),vals=[],labs=[];for(let i=0;i<24;i++){const h=(hh-23+i+24)%24;let v=6+14*Math.exp(-Math.pow(h-19,2)/14)+7*Math.exp(-Math.pow(h-11,2)/10)+hr()*4;if(i===23)v*=Math.max(.15,+o.minute/60);vals.push(Math.round(v));labs.push(String(h).padStart(2,"0")+":00");}
+  const loss=[["Account takeover",14.2e6],["Refund scams",11.8e6],["Mule collection",8.6e6],["Agent gaming",5.1e6],["Rapid pass-through",4.4e6],["Other",4.1e6]];
+  const fun=[["Alerts raised",3140],["Reviewed",2984],["Escalated to a case",228],["Confirmed fraud",171],["STRs filed",37]];
+  const dist=DIST.map(d=>{const ag=AGS.filter(a=>a.d===d[0]),fl=ag.filter(a=>a.st!=="Active").length;return[d[0],ag.length,fl,ag.reduce((s,a)=>s+a.s,0)/Math.max(1,ag.length)];});const mxs=Math.max.apply(null,dist.map(x=>x[2]/Math.max(1,x[1])));
+  const myq=open.slice().sort((a,b)=>(a.pri>b.pri?1:a.pri<b.pri?-1:a.created-b.created)).slice(0,6);
+  $("#cmd-root").innerHTML='<div class="kpis">'+kp("Transactions today",fmt(tt),"Live, sampled below")+kp("Value today","UGX "+uM(tt*41800))+kp("Open alerts",fmt(open.length),p1.length+" are P1")+kp("SLA breaches",fmt(br.length),br.length?"Act on these first":"None",br.length?"up":"dn")+kp("Fraud loss, month to date","UGX 48.2m","61% recovered","dn")+kp("Agent gaming rate",pc(AGS.filter(a=>a.conf).length/AGS.length,2),"Best in the group","dn")+'</div>'+
+   '<div class="grid3"><div class="box"><h4>Alerts raised per hour <small>last 24 hours, Kampala time</small></h4><p class="sub">The current hour is still filling.</p>'+chV(vals,labs,{ev:3,t:"Alerts per hour",hi:i=>i===23})+'</div>'+
+   '<div class="box"><h4>Fraud loss by typology <small>month to date, UGX</small></h4><p class="sub">UGX 48.2m lost, UGX 29.4m recovered.</p>'+chH(loss,{f:uM,lw:130,w:420,t:"Fraud loss by typology"})+'</div></div>'+
+   '<div class="grid2"><div class="box"><h4>From alert to STR <small>month to date</small></h4><p class="sub">Each step as a share of the one before.</p>'+chH(fun.map((r,i)=>[r[0],r[1],"mk1",i?pc(r[1]/fun[i-1][1],0)+" of previous":""]),{lw:140,vw:150,t:"Alert funnel"})+'</div>'+
+   '<div class="box"><h4>District exposure <small>share of agents flagged</small></h4><p class="sub">Darker means more agents on watch or suspended. Select a district to see its agents.</p><div class="dgrid">'+dist.map(x=>{const r=x[2]/Math.max(1,x[1]),p=Math.round(6+70*r/mxs);return'<button class="dtile" data-dist="'+x[0]+'" style="background:color-mix(in srgb,var(--c1) '+p+'%,var(--surface));'+(p>48?"color:#fff":"")+'"><b>'+x[0]+'</b><span style="'+(p>48?"color:#fff":"")+'">'+x[1]+' agents · '+x[2]+' flagged</span></button>';}).join("")+'</div></div></div>'+
+   '<div class="grid2"><div class="box"><h4>Priority queue <small>open alerts, most urgent first</small></h4><div class="otw" style="margin-top:6px"><table class="ot"><thead><tr><th>Pri</th><th>Alert</th><th>Typology</th><th>SLA</th></tr></thead><tbody>'+myq.map(a=>'<tr class="click" data-alert="'+a.id+'"><td>'+priB(a.pri)+'</td><td class="m">'+a.id+'</td><td>'+TYP[a.t].n+'</td><td>'+slaCh(a)+'</td></tr>').join("")+'</tbody></table></div></div>'+
+   '<div class="box"><h4>Live transactions <small>sample of the stream</small></h4><div class="otw" style="margin-top:6px"><table class="ot"><thead><tr><th>Time</th><th>Type</th><th class="r">Amount</th><th>Decision</th></tr></thead><tbody id="cmd-live">'+liveRows(6,true)+'</tbody></table></div></div></div>';}
+function liveRows(n,mini){return LIVE.filter(x=>(OS.lf.dec==="all"||x.dec===OS.lf.dec)&&(OS.lf.ch==="all"||x.ch===OS.lf.ch)||mini).slice(0,n).map((x,i)=>mini?'<tr class="click'+(i===0?" fresh":"")+'" data-tx="'+x.id+'"><td class="m">'+tKla(x.t)+'</td><td>'+x.ty+'</td><td class="r m">'+fmt(x.amt)+'</td><td>'+ch(x.dec,DEC_CLS[x.dec])+'</td></tr>':
+  '<tr class="click'+(i===0?" fresh":"")+'" data-tx="'+x.id+'"><td class="m">'+new Date(x.t).toLocaleTimeString("en-GB",{timeZone:"Africa/Kampala"})+'</td><td class="m">'+x.id+'</td><td>'+x.ty+'</td><td>'+x.ch+'</td><td class="r m">'+fmt(x.amt)+'</td><td>'+x.d+'</td><td>'+scB(x.s)+'</td><td class="m">'+(x.hits.join(", ")||'<span class="muted">none</span>')+'</td><td>'+ch(x.dec,DEC_CLS[x.dec])+'</td></tr>').join("");}
+
+/* ---------- monitoring ---------- */
+function rMonitor(t){if(t==="live"){const el=$("#mon-live");
+  el.innerHTML='<div class="kpis">'+kp("Scored this session",fmt(liveN+LIVE.length),"Sampled from about 2.5 per second")+kp("Sent to review",fmt(liveRev))+kp("Blocked",fmt(liveBlk))+kp("Reported (large cash)",fmt(liveRep))+kp("Rules live",ORULES.filter(r=>r.on).length+" of "+ORULES.length)+'</div>'+
+   '<div class="fbar"><button class="obtn sm '+(OS.paused?"":"sec")+'" data-act="pause">'+(OS.paused?"Resume stream":"Pause stream")+'</button><span class="muted">Decision</span>'+["all","Allow","Review","Block","Report"].map(d=>'<button class="fchip" data-lf-dec="'+d+'" aria-pressed="'+(OS.lf.dec===d)+'">'+(d==="all"?"All":d)+'</button>').join("")+'<span class="muted">Channel</span><select class="fsel" data-lf-ch><option value="all">All</option>'+["USSD","App","Agent"].map(c=>'<option'+(OS.lf.ch===c?" selected":"")+'>'+c+'</option>').join("")+'</select></div>'+
+   '<div class="otw"><table class="ot"><thead><tr><th>Time</th><th>Transaction</th><th>Type</th><th>Channel</th><th class="r">Amount (UGX)</th><th>District</th><th>Risk score</th><th>Rules hit</th><th>Decision</th></tr></thead><tbody id="live-body">'+liveRows(40)+'</tbody></table></div><p class="note">Select a transaction to see how every rule and the model scored it. Turning rules off in the Rules engine changes these decisions.</p>';}
+ else if(t==="rules"){const tot=ORULES.reduce((s,r)=>s+ruleEst(r),0),hrs=tot*6/60;
+  $("#mon-rules").innerHTML='<div class="kpis">'+kp("Rules live",ORULES.filter(r=>r.on).length+" of "+ORULES.length)+kp("Expected alerts a day",fmt(tot))+kp("Analyst hours a day",hrs.toFixed(1),"At 6 minutes an alert")+kp("Blended precision",pc(ORULES.filter(r=>r.on).reduce((s,r)=>s+ruleEst(r)*rulePrec(r),0)/Math.max(1,tot),0))+'</div>'+
+   '<div class="otw"><table class="ot"><thead><tr><th>On</th><th>Rule</th><th>Logic</th><th>Threshold</th><th>Action</th><th class="r">Alerts/day</th><th class="r">Precision</th><th class="r">Hours/day</th></tr></thead><tbody>'+ORULES.map(r=>'<tr><td><label class="switch" style="gap:0"><input type="checkbox" data-rule-on="'+r.id+'"'+(r.on?" checked":"")+' aria-label="Toggle '+r.id+'"></label></td><td><b class="m">'+r.id+'</b> '+esc(r.n)+'<br><span class="muted">'+TYP[r.t].n+'</span></td><td class="wrap">'+esc(r.lg.replace("{v}",r.v))+'</td><td><input class="finp" type="number" style="width:76px" data-rule-v="'+r.id+'" value="'+r.v+'" min="'+r.mn+'" max="'+r.mx+'" step="'+(r.mx<=5?.1:1)+'"'+(r.on?"":" disabled")+'> <span class="muted">'+r.u+'</span></td><td>'+ch(r.act,r.act==="Block"?"cs-bad":r.act==="Report"?"cs-acc":"cs-amb")+'</td><td class="r m">'+ruleEst(r)+'</td><td class="r m">'+(r.on?pc(rulePrec(r),0):"–")+'</td><td class="r m">'+(ruleEst(r)*.1).toFixed(1)+'</td></tr>').join("")+'</tbody></table></div><p class="note">Raising a threshold cuts alert volume and usually lifts precision; the estimates show the trade before a change goes live. Every change is written to the audit log.</p>';}}
+function txDrawer(id){const x=LIVE.find(v=>v.id===id);if(!x)return;const R=id2=>ruleById(id2);
+  const ev=ORULES.map(r=>{const hit=x.hits.indexOf(r.id)>=0;return'<li>'+(hit?ch("Hit","cs-bad"):r.on?ch("Pass","cs-ok"):ch("Off","cs-mut"))+'<span><b class="m">'+r.id+'</b> '+esc(r.n)+'</span></li>';}).join("");
+  const fx=[["Amount",1.05*Math.log10(x.amt/4e4)],["New device",x.fl.nd?2.1:0],["SIM swap in 24 h",x.fl.ss?3.4:0],["Night-time",x.fl.night?1:0],["Velocity",x.fl.vel?1.9:0],["Near threshold",x.fl.near?2.6:0],["Dormant wallet",x.fl.dorm?2.1:0],["Agent on watch",x.fl.wag?1.5:0],["Scam pattern",x.fl.scam?1.9:0]].filter(f=>Math.abs(f[1])>.01);
+  const mxf=Math.max.apply(null,fx.map(f=>Math.abs(f[1])).concat([1]));
+  drawer("tx",id,'<h4>'+x.id+' · '+x.ty+'</h4><p>'+tKla(x.t)+' · '+x.ch+' · '+x.d+'</p>',
+   '<div class="kpis">'+kp("Amount","UGX "+fmt(x.amt))+kp("Risk score",x.s.toFixed(3))+kp("Decision",x.dec)+'</div>'+
+   '<div class="dsec"><h5>Parties</h5><dl class="kv"><dt>Wallet</dt><dd class="m">'+x.w+'</dd>'+(x.ag?'<dt>Agent</dt><dd><button class="lnk" data-agent="'+x.ag+'">'+x.ag+' · '+esc(agById(x.ag).name)+'</button> '+ch(agById(x.ag).st,AGST[agById(x.ag).st])+'</dd>':"")+'</dl></div>'+
+   '<div class="dsec"><h5>Model contributions (log-odds)</h5>'+fx.map(f=>'<div class="factor"><span>'+f[0]+'</span><i><b style="left:0;width:'+(Math.abs(f[1])/mxf*100).toFixed(0)+'%;background:'+(f[1]>0?"var(--bad)":"var(--ok)")+'"></b></i><span>'+(f[1]>0?"+":"")+f[1].toFixed(2)+'</span></div>').join("")+'</div>'+
+   '<div class="dsec"><h5>Rule evaluation</h5><ul class="hitl">'+ev+'</ul></div>',
+   '<button class="obtn" data-act="tx-alert" data-id="'+x.id+'">Raise an alert</button><button class="obtn sec" data-act="dclose">Close</button>');}
+
+/* ---------- alerts & cases ---------- */
+function alertList(){const f=OS.af,q=f.q.trim().toLowerCase();return OA.filter(a=>(f.pri==="all"||a.pri===f.pri)&&(f.typ==="all"||a.t===f.typ)&&(f.st==="all"||(f.st==="open"?isOpen(a):!isOpen(a)))&&(f.own==="all"||(f.own==="mine"?a.own==="You":!a.own))&&(!q||a.id.toLowerCase().indexOf(q)>=0||a.ent.toLowerCase().indexOf(q)>=0));}
+function rAlerts(t){if(t==="queue"){const L=alertList(),f=OS.af;
+  $("#al-queue").innerHTML='<div class="fbar">'+["all","P1","P2","P3"].map(p=>'<button class="fchip" data-af-pri="'+p+'" aria-pressed="'+(f.pri===p)+'">'+(p==="all"?"All priorities":p)+'</button>').join("")+'<span class="muted">|</span>'+[["all","Anyone"],["none","Unassigned"],["mine","Mine"]].map(o=>'<button class="fchip" data-af-own="'+o[0]+'" aria-pressed="'+(f.own===o[0])+'">'+o[1]+'</button>').join("")+
+   '<select class="fsel" data-af-typ><option value="all">All typologies</option>'+Object.keys(TYP).map(k=>'<option value="'+k+'"'+(f.typ===k?" selected":"")+'>'+TYP[k].n+'</option>').join("")+'</select><select class="fsel" data-af-st>'+[["open","Open"],["closed","Closed"],["all","All statuses"]].map(o=>'<option value="'+o[0]+'"'+(f.st===o[0]?" selected":"")+'>'+o[1]+'</option>').join("")+'</select><input class="finp" data-af-q placeholder="Search alert or entity" value="'+esc(f.q)+'" style="width:170px"><span class="spacer"></span><span class="muted">'+L.length+' alerts</span></div>'+
+   '<div class="otw"><table class="ot"><thead><tr><th>Pri</th><th>Alert</th><th>Typology</th><th>Entity</th><th>District</th><th>Score</th><th class="r">At risk (UGX)</th><th>Age</th><th>SLA</th><th>Status</th><th>Owner</th></tr></thead><tbody>'+
+   (L.length?L.slice(0,80).map(a=>'<tr class="click" data-alert="'+a.id+'"><td>'+priB(a.pri)+'</td><td class="m">'+a.id+'</td><td>'+TYP[a.t].n+'</td><td class="m">'+a.ent+'</td><td>'+a.d+'</td><td>'+scB(a.sc)+'</td><td class="r m">'+fmt(a.amt)+'</td><td class="m">'+since(a.created)+'</td><td>'+slaCh(a)+'</td><td>'+stCh(a.st)+'</td><td>'+(a.own||'<span class="muted">Unassigned</span>')+'</td></tr>').join(""):'<tr><td colspan="11" class="muted" style="padding:18px">No alerts match these filters.</td></tr>')+'</tbody></table></div>';}
+ else{$("#al-cases").innerHTML='<p class="note" style="margin:0 0 10px">Cases move left to right. Filing an STR needs the MLCO role; switch roles from the top bar.</p><div class="kanban">'+STAGES.map((s,i)=>{const cs=OC.filter(c=>c.stage===i);return'<div class="kcol"><h5>'+s+'<span>'+cs.length+'</span></h5>'+cs.map(c=>'<button class="kcard" data-case="'+c.id+'"><span class="mono">'+c.id+'</span><b>'+TYP[c.t].n+'</b><span>'+c.sub+' · UGX '+uM(c.amt)+'</span><span>'+since(c.opened)+' open'+(c.str?' · '+c.str:'')+'</span></button>').join("")+'</div>';}).join("")+'</div>';}}
+function alertDrawer(id){const a=alById(id);if(!a)return;const fs=factorsFor(a),mx=Math.max.apply(null,fs.map(f=>Math.abs(f[1]))),tx=txnsFor(a),act=actFor(a),ag=a.etype==="Agent"?agById(a.ent):null;
+  const rl=ruleById(a.rule);
+  const body='<div class="kpis">'+kp("Score",a.sc.toFixed(3))+kp("At risk","UGX "+uM(a.amt))+kp("Age",since(a.created))+kp("SLA",a.pri+" · "+SLA[a.pri]+"h")+'</div>'+
+   '<div class="dsec"><h5>Why it fired</h5><p style="margin:0 0 6px">'+(rl?'<b class="m">'+rl.id+'</b> '+esc(rl.n)+': '+esc(rl.lg.replace("{v}",rl.v)):'Transaction risk model above the review threshold')+'</p>'+fs.map(f=>'<div class="factor"><span>'+esc(f[0])+'</span><i><b style="left:0;width:'+(Math.abs(f[1])/mx*100).toFixed(0)+'%;background:'+(f[1]>0?"var(--bad)":"var(--ok)")+'"></b></i><span>'+(f[1]>0?"+":"−")+Math.abs(f[1]).toFixed(2)+'</span></div>').join("")+'<p class="note">Contributions in log-odds from a base rate of 2%. Red raises risk, green lowers it.</p></div>'+
+   '<div class="dsec"><h5>Red flags for '+TYP[a.t].n.toLowerCase()+'</h5><ul class="hitl">'+TYP[a.t].f.map((f,i)=>'<li>'+(i<2?ch("Present","cs-bad"):ch("Check","cs-mut"))+'<span>'+esc(f)+'</span></li>').join("")+'</ul></div>'+
+   '<div class="dsec"><h5>'+a.etype+' profile</h5><dl class="kv"><dt>'+a.etype+'</dt><dd class="m">'+a.ent+(ag?' · '+esc(ag.name):"")+'</dd><dt>District</dt><dd>'+a.d+'</dd>'+(ag?'<dt>Agent status</dt><dd>'+ch(ag.st,AGST[ag.st])+' risk '+ag.s.toFixed(2)+'</dd><dt>Round-trip share</dt><dd>'+pc(ag.rt)+'</dd>':'<dt>KYC tier</dt><dd>'+a.kyc+'</dd><dt>Wallet age</dt><dd>'+fmt(a.wage)+' days</dd><dt>Devices, 30 days</dt><dd>'+a.dev+'</dd>')+'</dl></div>'+
+   '<div class="dsec"><h5>Activity, last 30 days</h5>'+chV(act,act.map((v,i)=>i===29?"today":(29-i)+"d"),{w:420,h:110,ev:7,t:"Transactions per day",hi:i=>i>=27})+'</div>'+
+   '<div class="dsec"><h5>Recent transactions</h5><div class="otw"><table class="ot"><thead><tr><th>Time</th><th>Type</th><th>Counterparty</th><th>Dir</th><th class="r">UGX</th></tr></thead><tbody>'+tx.map(r=>'<tr><td class="m">'+dKla(r[0])+' '+tKla(r[0])+'</td><td>'+r[1]+'</td><td class="m">'+esc(r[2])+'</td><td>'+r[3]+'</td><td class="r m">'+(r[4]?fmt(r[4]):"–")+'</td></tr>').join("")+'</tbody></table></div></div>'+
+   '<div class="dsec"><h5>Notes</h5>'+(a.notes.length?'<ul class="timeline">'+a.notes.map(n=>'<li><time>'+tKla(n[0])+'</time><span>'+esc(n[1])+'</span></li>').join("")+'</ul>':'<p class="muted" style="margin:0 0 6px">No notes yet.</p>')+'<textarea class="ta" id="al-note" placeholder="Add an investigation note"></textarea><div style="margin-top:6px"><button class="obtn sec sm" data-act="al-note" data-id="'+a.id+'">Add note</button></div></div>'+
+   '<div class="dsec"><h5>History</h5><ul class="timeline">'+a.hist.slice().reverse().map(h=>'<li><time>'+tKla(h[0])+'</time><span>'+esc(h[1])+'</span></li>').join("")+'</ul></div>';
+  let foot="";if(isOpen(a)){if(a.own!=="You")foot+='<button class="obtn sec" data-act="al-assign" data-id="'+a.id+'">Assign to me</button>';if(a.st!=="In review"&&a.st!=="Escalated")foot+='<button class="obtn sec" data-act="al-review" data-id="'+a.id+'">Start review</button>';
+    if(a.st!=="Escalated")foot+='<button class="obtn" data-act="al-escalate" data-id="'+a.id+'">Escalate to a case</button>';else{const c=OC.find(c2=>c2.alerts.indexOf(a.id)>=0);if(c)foot+='<button class="obtn" data-case="'+c.id+'">Open '+c.id+'</button>';}
+    foot+='<select class="fsel" id="al-fp-why"><option>Known customer behaviour</option><option>Data quality issue</option><option>Duplicate alert</option><option>Customer confirmed the activity</option></select><button class="obtn sec" data-act="al-fp" data-id="'+a.id+'">Close as false positive</button><button class="obtn danger" data-act="al-tp" data-id="'+a.id+'">Confirm fraud</button>';}
+  else foot='<button class="obtn sec" data-act="al-reopen" data-id="'+a.id+'">Reopen</button>';
+  drawer("alert",id,'<h4>'+priB(a.pri)+' '+a.id+' · '+TYP[a.t].n+'</h4><p>'+stCh(a.st)+' '+(a.own?"Owner: "+a.own:"Unassigned")+'</p>',body,foot);}
+function newCase(a,stage){const c={id:"CS-"+(26040+OC.length),sub:a.ent,etype:a.etype,t:a.t,amt:a.amt,opened:Date.now(),stage:stage,own:"You",alerts:[a.id],log:[[Date.now(),"Case opened from "+a.id+" by "+who()]],str:null};OC.unshift(c);return c;}
+function caseDrawer(id){const c=csById(id);if(!c)return;const mlco=OS.role==="MLCO";
+  const body='<div class="steps">'+STAGES.map((s,i)=>'<span class="'+(i<c.stage?"done":i===c.stage?"on":"")+'">'+s+'</span>').join("")+'</div>'+
+   '<div class="dsec"><h5>Case</h5><dl class="kv"><dt>Subject</dt><dd class="m">'+c.sub+' ('+c.etype+')</dd><dt>Typology</dt><dd>'+TYP[c.t].n+'</dd><dt>Amount</dt><dd>UGX '+fmt(c.amt)+'</dd><dt>Opened</dt><dd>'+dKla(c.opened)+', '+since(c.opened)+' ago</dd><dt>Owner</dt><dd>'+c.own+'</dd>'+(c.str?'<dt>STR</dt><dd class="m">'+c.str+'</dd>':"")+'</dl></div>'+
+   '<div class="dsec"><h5>Linked alerts</h5><div class="fbar">'+c.alerts.map(x=>'<button class="fchip" data-alert="'+x+'">'+x+'</button>').join("")+'</div></div>'+
+   '<div class="dsec"><h5>Case log</h5><ul class="timeline">'+c.log.slice().reverse().map(h=>'<li><time>'+dKla(h[0])+'</time><span>'+esc(h[1])+'</span></li>').join("")+'</ul></div>'+
+   (c.stage===3&&!mlco?'<p class="note">Filing the STR or closing without one is an MLCO decision. Switch to the MLCO role in the top bar to continue.</p>':"");
+  let foot="";if(c.stage<3)foot+='<button class="obtn" data-act="cs-next" data-id="'+c.id+'">Move to '+STAGES[c.stage+1]+'</button>';
+  if(c.stage===3){foot+='<button class="obtn" data-act="cs-str" data-id="'+c.id+'">Draft the STR</button><button class="obtn sec" data-act="cs-close" data-id="'+c.id+'"'+(mlco?"":" disabled")+'>Close without STR</button>';}
+  if(c.stage===4)foot+='<button class="obtn sec" data-act="cs-close" data-id="'+c.id+'">Close case</button>';
+  if(c.stage>0&&c.stage<4)foot+='<button class="obtn sec" data-act="cs-back" data-id="'+c.id+'">Send back</button>';
+  drawer("case",id,'<h4>'+c.id+' · '+TYP[c.t].n+'</h4><p>Stage: '+STAGES[c.stage]+'</p>',body,foot);}
+
+/* ---------- agents ---------- */
+function agentList(){const f=OS.agf,q=f.q.trim().toLowerCase();let L=AGS.filter(a=>(f.st==="all"||a.st===f.st)&&(f.d==="all"||a.d===f.d)&&(!q||a.id.toLowerCase().indexOf(q)>=0||a.name.toLowerCase().indexOf(q)>=0)&&
+  (f.sig==="all"||(f.sig==="rt"&&a.rt>.3)||(f.sig==="top3"&&a.top3>.5)||(f.sig==="split"&&a.split>.25)||(f.sig==="peer"&&a.peer>2.5)));return L.sort((x,y)=>(x[f.sort]>y[f.sort]?1:x[f.sort]<y[f.sort]?-1:0)*f.dir);}
+function rAgents(t){const conf=AGS.filter(a=>a.conf).length,watch=AGS.filter(a=>a.st==="Watch").length,susp=AGS.filter(a=>a.st==="Suspended").length;
+ if(t==="overview"){const bins=new Array(18).fill(0);let low=0;AGS.forEach(a=>{if(a.s<.1)low++;else bins[Math.min(17,Math.floor((a.s-.1)/.05+1e-9))]++;});
+  const sig=[["rt","Round-trip share above 30%",AGS.filter(a=>a.rt>.3).length],["top3","Top-3 customers above 50% of volume",AGS.filter(a=>a.top3>.5).length],["split","Split deposits above 25%",AGS.filter(a=>a.split>.25).length],["peer","Commission above 2.5x peers",AGS.filter(a=>a.peer>2.5).length]];
+  const dist=DIST.map(d=>{const ag=AGS.filter(a=>a.d===d[0]);return[d[0],ag.length,ag.filter(a=>a.st!=="Active").length,ag.reduce((s,a)=>s+a.flt,0)];});
+  $("#ag-overview").innerHTML='<div class="kpis">'+kp("Agents",fmt(AGS.length))+kp("On watch",fmt(watch),"","up")+kp("Suspended",fmt(susp))+kp("Gaming rate",pc(conf/AGS.length,2),conf+" confirmed this month","dn")+kp("Float in the network","UGX "+uM(AGS.reduce((s,a)=>s+a.flt,0)))+kp("Avg commission, MTD","UGX "+uM(AGS.reduce((s,a)=>s+a.com,0)/AGS.length))+'</div>'+
+   '<div class="grid2"><div class="box"><h4>Agent risk scores <small>agent gaming detector v3.2</small></h4><p class="sub">'+fmt(low)+' agents score below 0.10 and are left off the chart. Agents at 0.55 or above go on watch.</p>'+chV(bins,bins.map((v,i)=>(.1+i*.05).toFixed(2)),{ev:2,edge:true,endL:"1.00",t:"Agent risk distribution, scores 0.10 and above",mark:(.55-.1)/.9,markL:"watch at 0.55",hi:i=>i>=9})+'</div>'+
+   '<div class="box"><h4>Gaming signals <small>agents above each threshold</small></h4><p class="sub">Select a signal to list the agents behind it.</p><div class="ccards">'+sig.map(s=>'<button class="ccard2" data-ag-sig="'+s[0]+'"><b>'+s[2]+' agents</b><p>'+s[1]+'</p></button>').join("")+'</div></div></div>'+
+   '<div class="box"><h4>Districts <small>agents, flagged agents and float</small></h4><div class="dgrid" style="margin-top:8px">'+dist.map(x=>'<button class="dtile" data-dist="'+x[0]+'" style="background:var(--surface)"><b>'+x[0]+'</b><span>'+x[1]+' agents · '+x[2]+' flagged</span><span>float UGX '+uM(x[3])+'</span></button>').join("")+'</div></div>';}
+ else{const f=OS.agf,L=agentList();const th=(k,l,r)=>'<th class="sortable'+(r?" r":"")+'" data-ag-sort="'+k+'">'+l+(f.sort===k?(f.dir<0?" ↓":" ↑"):"")+'</th>';
+  $("#ag-list").innerHTML='<div class="fbar"><input class="finp" data-ag-q placeholder="Search agent ID or name" value="'+esc(f.q)+'" style="width:180px">'+["all","Active","Watch","Suspended"].map(s=>'<button class="fchip" data-ag-st="'+s+'" aria-pressed="'+(f.st===s)+'">'+(s==="all"?"All":s)+'</button>').join("")+
+   '<select class="fsel" data-ag-d><option value="all">All districts</option>'+DIST.map(d=>'<option'+(f.d===d[0]?" selected":"")+'>'+d[0]+'</option>').join("")+'</select><select class="fsel" data-ag-sigsel><option value="all">Any signal</option>'+[["rt","Round-trip above 30%"],["top3","Top-3 above 50%"],["split","Split above 25%"],["peer","Commission above 2.5x peers"]].map(o=>'<option value="'+o[0]+'"'+(f.sig===o[0]?" selected":"")+'>'+o[1]+'</option>').join("")+'</select><span class="spacer"></span><span class="muted">'+L.length+' agents</span></div>'+
+   '<div class="otw"><table class="ot"><thead><tr>'+th("id","Agent")+th("d","District")+th("tpd","Txns/day",1)+th("flt","Float",1)+th("com","Commission MTD",1)+th("peer","vs peers",1)+th("rt","Round-trip",1)+th("top3","Top-3",1)+th("split","Split",1)+th("s","Risk")+'<th>Status</th></tr></thead><tbody>'+
+   L.slice(0,f.n).map(a=>'<tr class="click" data-agent="'+a.id+'"><td><b class="m">'+a.id+'</b> <span class="muted">'+esc(a.name)+'</span></td><td>'+a.d+'</td><td class="r m">'+a.tpd+'</td><td class="r m">'+uM(a.flt)+'</td><td class="r m">'+uM(a.com)+'</td><td class="r m"'+(a.peer>2.5?' style="color:var(--bad)"':"")+'>'+a.peer.toFixed(2)+'x</td><td class="r m"'+(a.rt>.3?' style="color:var(--bad)"':"")+'>'+pc(a.rt,0)+'</td><td class="r m"'+(a.top3>.5?' style="color:var(--bad)"':"")+'>'+pc(a.top3,0)+'</td><td class="r m"'+(a.split>.25?' style="color:var(--bad)"':"")+'>'+pc(a.split,0)+'</td><td>'+scB(a.s)+'</td><td>'+ch(a.st,AGST[a.st])+'</td></tr>').join("")+'</tbody></table></div>'+(L.length>f.n?'<div style="margin-top:8px"><button class="obtn sec sm" data-act="ag-more">Show 40 more</button></div>':"");}}
+function agentDrawer(id){const a=agById(id);if(!a)return;const r=rng(parseInt(a.id.slice(3),10)),days=[],me=[],peer=[];const pm=a.com/30/a.peer;
+  for(let i=29;i>=0;i--){days.push(i===0?"today":i+"d");peer.push(Math.round(pm*(.9+r()*.2)));me.push(Math.round(pm*a.peer*(.82+r()*.36)*(a.conf&&i<10?1.25:1)));}
+  const bl=(l,v,thr,mxv,f,inv)=>{const bad=inv?v<thr:v>thr;return'<div class="bullet"><span>'+l+'</span><span class="bt"><b style="width:'+clamp(v/mxv*100,1,100).toFixed(0)+'%;background:'+(bad?"var(--bad)":"var(--c1)")+'"></b><i style="left:'+(thr/mxv*100).toFixed(0)+'%"></i></span><span>'+f(v)+'</span></div>';};
+  const cu=[];for(let i=0;i<3;i++)cu.push(["W-"+(300000+Math.floor(r()*600000)),i===0?a.top3*.5:i===1?a.top3*.3:a.top3*.2]);
+  drawer("agent",id,'<h4>'+a.id+' · '+esc(a.name)+'</h4><p>'+a.d+' · '+ch(a.st,AGST[a.st])+(a.note?' '+esc(a.note):"")+'</p>',
+   '<div class="kpis">'+kp("Risk score",a.s.toFixed(3))+kp("Txns/day",a.tpd)+kp("Float","UGX "+uM(a.flt))+kp("Commission MTD","UGX "+uM(a.com))+'</div>'+
+   '<div class="dsec"><h5>Gaming indicators <small class="muted">bar is this agent, tick is the alert threshold</small></h5>'+bl("Round-trip share",a.rt,.3,.8,v=>pc(v,0))+bl("Top-3 customer share",a.top3,.5,1,v=>pc(v,0))+bl("Split deposit rate",a.split,.25,.6,v=>pc(v,0))+bl("Commission vs peers",a.peer,2.5,5,v=>v.toFixed(2)+"x")+bl("Net flow ratio",a.nf,.15,1,v=>v.toFixed(2),true)+'<p class="note">A low net flow ratio means cash goes in and straight back out, which is what round-tripping looks like.</p></div>'+
+   '<div class="dsec"><h5>Daily commission vs peer median, UGX</h5>'+chLine([{n:"This agent",v:me,c:"ln1",dy:-4},{n:"Peer median",v:peer,c:"ln2",dy:-6}],days,{w:440,h:150,ev:7,f:uM,t:"Commission vs peers"})+'<div class="legend2"><span><i class="ln" style="background:var(--c1)"></i>This agent</span><span><i class="ln" style="background:var(--c2)"></i>Peer median in '+a.d+'</span></div></div>'+
+   '<div class="dsec"><h5>Top customers by volume</h5><div class="otw"><table class="ot"><thead><tr><th>Customer</th><th class="r">Share of volume</th></tr></thead><tbody>'+cu.map(c=>'<tr><td class="m">'+c[0]+'</td><td class="r m">'+pc(c[1],0)+'</td></tr>').join("")+'</tbody></table></div></div>',
+   (a.st!=="Watch"?'<button class="obtn sec" data-act="ag-watch" data-id="'+a.id+'">Put on watch</button>':"")+'<button class="obtn sec" data-act="ag-audit" data-id="'+a.id+'">Request float audit</button>'+(a.st!=="Suspended"?'<button class="obtn danger" data-act="ag-suspend" data-id="'+a.id+'">Suspend agent</button>':"")+(a.st!=="Active"?'<button class="obtn ok" data-act="ag-clear" data-id="'+a.id+'">Clear to active</button>':""));}
+
+/* ---------- link analysis ---------- */
+const GN=[{id:"hub",k:"wallet",l:"W-338201",x:300,y:175,r:.94,info:"Collector wallet. Received from 9 unrelated senders in 6 hours, then cashed out 95% at two agents 140 km apart.",flag:1}];
+[[120,60],[95,110],[85,165],[95,220],[120,275],[160,318],[175,30],[60,250],[60,85]].forEach((p,i)=>GN.push({id:"s"+i,k:"wallet",l:"W-"+(412000+i*1373),x:p[0],y:p[1],r:+(.3+((i*37)%50)/100).toFixed(2),info:i===3?"Sender linked to a reported fraud case (CS-25877).":"Sender wallet. First-ever transfer to W-338201.",flag:i===3?1:0}));
+GN.push({id:"a1",k:"agent",l:"AG-11204",x:500,y:110,r:.71,info:"Cash-out agent in Mbale. Paid out UGX 4.9m to the collector."},{id:"a2",k:"agent",l:"AG-12841",x:510,y:250,r:.66,info:"Cash-out agent in Kampala. Paid out UGX 3.2m to the collector."},
+  {id:"d1",k:"device",l:"DEV-7F3A",x:250,y:330,r:.9,info:"Handset shared by the collector and three senders, a classic sign of a controlled mule ring.",flag:1},{id:"d2",k:"device",l:"DEV-91C0",x:370,y:330,r:.6,info:"Handset shared by two sender wallets."});
+const GE=[];for(let i=0;i<9;i++)GE.push(["s"+i,"hub","xfer"]);GE.push(["hub","a1","cash"],["hub","a2","cash"],["d1","hub","dev"],["d1","s1","dev"],["d1","s4","dev"],["d1","s7","dev"],["d2","s2","dev"],["d2","s5","dev"]);
+const GX=[{id:"x1",k:"wallet",l:"W-529114",x:170,y:372,r:.81,info:"Second-degree wallet on DEV-7F3A. Collector pattern starting.",flag:1},{id:"x2",k:"wallet",l:"W-530882",x:300,y:378,r:.77,info:"Second-degree wallet on DEV-7F3A.",flag:1},{id:"x3",k:"wallet",l:"W-601447",x:440,y:372,r:.58,info:"Shares DEV-91C0."},{id:"x4",k:"agent",l:"AG-10911",x:560,y:330,r:.62,info:"Agent used by the second-degree wallets for cash-out."}];
+const GXE=[["d1","x1","dev"],["d1","x2","dev"],["d2","x3","dev"],["x1","x4","cash"],["x2","x4","cash"]];
+function rLinks(){const nodes=GN.concat(OS.gx?GX:[]),edges=GE.concat(OS.gx?GXE:[]),sel=OS.gsel,nb=new Set([sel]);edges.forEach(e=>{if(e[0]===sel)nb.add(e[1]);if(e[1]===sel)nb.add(e[0]);});const N=id=>nodes.find(n=>n.id===id);
+  let s='<svg viewBox="0 0 600 400" role="img" aria-label="Network of wallets, agents and devices">';
+  edges.forEach(e=>{const a=N(e[0]),b=N(e[1]);const hi=e[0]===sel||e[1]===sel;s+='<line class="gedge '+(e[2]==="dev"?"dev":e[2]==="cash"?"cash":"")+(hi?" hi":"")+'" x1="'+a.x+'" y1="'+a.y+'" x2="'+b.x+'" y2="'+b.y+'"/>';});
+  nodes.forEach(n=>{const cls="gnode"+(sel&&!nb.has(n.id)?" dim":"")+(n.id===sel?" sel":"")+(n.id[0]==="x"?" new":"");const col=n.k==="wallet"?"var(--c1)":n.k==="agent"?"var(--c3)":"var(--c2)";const rr=n.id==="hub"?15:10;
+    let shp=n.k==="wallet"?'<circle cx="'+n.x+'" cy="'+n.y+'" r="'+rr+'" fill="'+col+'"/>':n.k==="agent"?'<rect x="'+(n.x-rr)+'" y="'+(n.y-rr)+'" width="'+2*rr+'" height="'+2*rr+'" rx="3" fill="'+col+'"/>':'<rect x="'+(n.x-9)+'" y="'+(n.y-9)+'" width="18" height="18" rx="2" fill="'+col+'" transform="rotate(45 '+n.x+' '+n.y+')"/>';
+    if(n.flag)shp='<circle cx="'+n.x+'" cy="'+n.y+'" r="'+(rr+5)+'" fill="none" stroke="var(--bad)" stroke-width="1.6" stroke-dasharray="3 2"/>'+shp;
+    s+='<g class="'+cls+'" data-node="'+n.id+'" tabindex="0" role="button" aria-label="'+n.k+' '+n.l+'">'+shp+'<text x="'+n.x+'" y="'+(n.y+rr+12)+'" text-anchor="middle">'+n.l+'</text></g>';});
+  s+='</svg>';const cur=N(sel)||N("hub"),deg=edges.filter(e=>e[0]===cur.id||e[1]===cur.id).length;
+  $("#links-root").innerHTML='<div class="graph-wrap"><div class="box graph"><h4>Mule ring around W-338201 <small>select any node</small></h4>'+s+'<div class="legend2"><span><i style="background:var(--c1);border-radius:50%"></i>Wallet</span><span><i style="background:var(--c3)"></i>Agent</span><span><i style="background:var(--c2);transform:rotate(45deg)"></i>Device</span><span><i class="ln" style="background:var(--line-2)"></i>Transfer</span><span><i class="ln" style="background:var(--c3)"></i>Cash-out</span><span><i class="ln" style="background:var(--bad)"></i>Shared device</span><span><i style="border:1.5px dashed var(--bad);background:transparent;border-radius:50%"></i>Flagged</span></div></div>'+
+   '<div class="box"><h4>'+cur.l+'</h4><p class="sub">'+cur.k[0].toUpperCase()+cur.k.slice(1)+' · '+deg+' connection'+(deg===1?"":"s")+'</p><dl class="kv"><dt>Risk</dt><dd>'+scB(cur.r)+'</dd></dl><p style="margin:10px 0">'+esc(cur.info)+'</p><div style="display:grid;gap:6px">'+
+   (OS.gx?'<button class="obtn sec" data-act="g-reset">Show first degree only</button>':'<button class="obtn sec" data-act="g-expand">Expand second degree</button>')+'<button class="obtn" data-act="g-case">Open a case on this ring</button></div><p class="note">Three senders and the collector share one handset, so these are not independent customers. That is the evidence that turns a velocity alert into a mule case.</p></div></div>';}
+
+/* ---------- AML & KYC ---------- */
+const CALC=[["type","Customer type",[["Individual",0],["Sole trader",8],["Company",14],["NGO or charity",16]]],["occ","Occupation or business",[["Salaried",0],["Small trader",6],["Cash-intensive business",14],["Money remittance or FX",22]]],["geo","Geography",[["Kampala metro",0],["Upcountry district",3],["Border district",12],["Exposure to high-risk jurisdictions",24]]],["prod","Products and channels",[["Wallet only",0],["Wallet and agent cash",6],["Wallet and bank link",8],["Cross-border remittance",16]]],["pep","Politically exposed",[["No",0],["Domestic PEP",18],["Foreign PEP",26]]],["adv","Adverse media",[["None",0],["Unverified",8],["Credible",20]]]];
+function craResult(){const c=OS.calc;const vol=c.vol;const volPts=Math.min(20,Math.round(Math.log10(vol+1)*10));const parts=CALC.map(k=>[k[1],c[k[0]]]).concat([["Expected monthly volume",volPts]]);const tot=parts.reduce((x,p)=>x+p[1],0);const rate=tot>=50?"High":tot>=25?"Medium":"Low";
+  return '<h4>Result</h4><div class="kpis" style="margin-top:6px">'+kp("Risk score",String(tot)+" / 128")+kp("Rating",rate)+kp("Due diligence",rate==="High"?"Enhanced (EDD)":rate==="Medium"?"Standard CDD":"Simplified CDD")+kp("Review every",rate==="High"?"6 months":rate==="Medium"?"12 months":"36 months")+'</div>'+
+   '<div style="margin-top:6px">'+parts.map(p=>'<div class="factor"><span>'+p[0]+'</span><i><b style="left:0;width:'+(p[1]/26*100).toFixed(0)+'%;background:var(--c1)"></b></i><span>'+p[1]+'</span></div>').join("")+'</div><p class="note">'+(rate==="High"?"Needs senior management approval, documented source of funds"+(c.pep?" and source of wealth":"")+", and enhanced monitoring.":rate==="Medium"?"Standard verification with yearly review and normal monitoring.":"Simplified checks within tier limits.")+' Thresholds: 25 for medium, 50 for high.</p>';}
+function rAml(t){if(t==="cra"){const tiers=[["Tier 1",268400,[.93,.06,.01]],["Tier 2",171900,[.86,.12,.02]],["Tier 3",45914,[.71,.22,.07]]];
+  const W=560,rh=30;let s='<svg viewBox="0 0 '+W+' '+(tiers.length*rh+6)+'" role="img" aria-label="Risk rating by KYC tier">';tiers.forEach((tr,i)=>{let x=110;const y=i*rh+4;s+='<text class="tx2b" x="102" y="'+(y+rh/2+2)+'" text-anchor="end">'+tr[0]+'</text>';tr[2].forEach((p,j)=>{const w=(W-120)*p;s+='<rect x="'+x.toFixed(1)+'" y="'+(y+5)+'" width="'+Math.max(1,w-2).toFixed(1)+'" height="'+(rh-12)+'" rx="2" fill="'+["var(--ok)","var(--amber)","var(--bad)"][j]+'"><title>'+tr[0]+', '+["low","medium","high"][j]+' risk: '+pc(p)+' of '+fmt(tr[1])+'</title></rect>';if(p>.05)s+='<text x="'+(x+6).toFixed(1)+'" y="'+(y+rh/2+2)+'" class="tx2" style="fill:#fff">'+pc(p,0)+'</text>';x+=w;});});s+='</svg>';
+  const c=OS.calc,vol=c.vol;
+  $("#aml-cra").innerHTML='<div class="kpis">'+kp("Registered wallets","486,214")+kp("High risk",pc(9238/486214),"9,238 wallets")+kp("PEPs","214","Domestic and foreign")+kp("EDD reviews overdue",String(EDD.filter(e=>e.st==="Overdue").length),"","up")+kp("Sanctions matches pending","3")+'</div>'+
+   '<div class="box" style="margin-bottom:10px"><h4>Risk rating by KYC tier <small>share of wallets</small></h4><p class="sub">Higher tiers carry higher limits, so they hold more medium and high-risk customers.</p>'+s+'<div class="legend2"><span><i style="background:var(--ok)"></i>Low</span><span><i style="background:var(--amber)"></i>Medium</span><span><i style="background:var(--bad)"></i>High</span></div></div>'+
+   '<div class="grid2"><div class="box"><h4>Customer risk calculator</h4><p class="sub">The scoring model behind onboarding and periodic reviews.</p><div class="form">'+CALC.map(k=>'<label class="fld"><span>'+k[1]+'</span><select data-calc="'+k[0]+'">'+k[2].map(o=>'<option value="'+o[1]+'"'+(c[k[0]]===o[1]?" selected":"")+'>'+o[0]+'</option>').join("")+'</select></label>').join("")+'<label class="fld full"><span>Expected monthly volume: UGX '+fmt(vol)+'m</span><input type="range" data-calc="vol" min="1" max="200" step="1" value="'+vol+'"></label></div></div>'+
+   '<div class="box" id="cra-res">'+craResult()+'</div></div>';}
+ else if(t==="edd"){$("#aml-edd").innerHTML='<div class="fbar"><span class="muted">'+EDD.filter(e=>e.st==="Overdue").length+' overdue · '+EDD.filter(e=>e.st==="Due soon").length+' due within 14 days</span></div><div class="otw"><table class="ot"><thead><tr><th>Wallet</th><th>Segment</th><th>Why it is high risk</th><th>District</th><th>Risk</th><th>Last review</th><th>Due</th><th>Status</th></tr></thead><tbody>'+
+   EDD.map((e,i)=>'<tr class="click" data-edd="'+i+'"><td class="m">'+e.w+'</td><td>'+e.seg+'</td><td>'+e.why+'</td><td>'+e.d+'</td><td>'+scB(e.sc)+'</td><td>'+dKla(e.last)+'</td><td>'+dKla(e.due)+'</td><td>'+ch(e.st,e.st==="Overdue"?"cs-bad":e.st==="Due soon"?"cs-amb":e.st==="Completed"?"cs-ok":"cs-mut")+'</td></tr>').join("")+'</tbody></table></div>';}
+ else if(t==="typ"){$("#aml-typ").innerHTML='<p class="note" style="margin:0 0 10px">The typology library links each pattern to the rule that detects it. Select one to open its alerts.</p><div class="ccards">'+Object.keys(TYP).map(k=>{const n=OA.filter(a=>a.t===k&&isOpen(a)).length;return'<button class="ccard2" data-typ="'+k+'"><b>'+TYP[k].n+'</b><p>'+TYP[k].d+'</p><ul>'+TYP[k].f.map(f=>"<li>"+f+"</li>").join("")+'</ul><span class="mono muted">'+TYP[k].r+' · '+n+' open alert'+(n===1?"":"s")+'</span></button>';}).join("")+'</div>';}
+ else if(t==="sanctions"){renderScreen();}}
+function eddDrawer(i){const e=EDD[+i];if(!e)return;const pep=e.why.indexOf("PEP")>=0;
+  drawer("edd",i,'<h4>EDD review · '+e.w+'</h4><p>'+e.seg+' · '+e.why+'</p>','<dl class="kv"><dt>District</dt><dd>'+e.d+'</dd><dt>Risk score</dt><dd>'+e.sc.toFixed(2)+'</dd><dt>Last review</dt><dd>'+dKla(e.last)+'</dd><dt>Due</dt><dd>'+dKla(e.due)+' '+ch(e.st,e.st==="Overdue"?"cs-bad":"cs-mut")+'</dd></dl>'+
+   '<div class="dsec"><h5>Checklist</h5>'+["Identity re-verified against the national ID","Source of funds documented","Source of wealth documented"+(pep?" (required for PEPs)":""),"Adverse media and sanctions re-screened","Transaction pattern consistent with profile","Senior management approval"+(pep?" (required)":"")].map((x,j)=>'<label class="chk"><input type="checkbox" data-edd-chk="'+j+'"'+(j<2?" checked":"")+'><span>'+x+'</span></label>').join("")+'</div>'+
+   '<div class="dsec"><h5>Outcome</h5><select class="fsel" id="edd-out"><option>Retain</option><option>Retain with lower limits</option><option>Exit the relationship</option></select><p class="note">Exiting a customer is an MLCO decision.</p></div>',
+   e.st==="Completed"?'<span class="muted">Review completed</span>':'<button class="obtn" data-act="edd-done" data-id="'+i+'">Complete review</button>');}
+
+/* ---------- reporting ---------- */
+function rReports(t){if(t==="str"){$("#rp-str").innerHTML='<div class="fbar"><span class="muted">'+STRS.length+' reports in this demo register</span><span class="spacer"></span><button class="obtn sm" data-etab="wizard" data-env="reports">File a new STR</button></div><div class="otw"><table class="ot"><thead><tr><th>goAML reference</th><th>Case</th><th>Subject</th><th>Typology</th><th class="r">Amount (UGX)</th><th>Filed</th><th>Status</th></tr></thead><tbody>'+
+   STRS.map(s=>'<tr><td class="m">'+s.ref+'</td><td class="m">'+s.cs+'</td><td class="m">'+s.sub+'</td><td>'+TYP[s.t].n+'</td><td class="r m">'+fmt(s.amt)+'</td><td>'+dKla(s.date)+'</td><td>'+ch(s.st,s.st==="Acknowledged"?"cs-ok":s.st==="Submitted"?"cs-acc":"cs-amb")+'</td></tr>').join("")+'</tbody></table></div><p class="note">References and acknowledgements are simulated. In production these go to the Financial Intelligence Authority through goAML.</p>';}
+ else if(t==="wizard")rWizard();
+ else if(t==="lctr"){$("#rp-lctr").innerHTML='<div class="kpis">'+kp("Reports, last 30 days",String(LCTR.length))+kp("Pending",String(LCTR.filter(l=>l.st==="Pending").length),"","up")+kp("Value reported","UGX "+uM(LCTR.reduce((s,l)=>s+l.amt,0)))+'</div><div class="otw"><table class="ot"><thead><tr><th>Date</th><th>Entity</th><th>Type</th><th class="r">Amount (UGX)</th><th>District</th><th>Reference</th><th>Status</th></tr></thead><tbody>'+
+   LCTR.map((l,i)=>'<tr><td>'+dKla(l.d)+'</td><td class="m">'+l.ent+'</td><td>'+l.ty+'</td><td class="r m">'+fmt(l.amt)+'</td><td>'+l.dist+'</td><td class="m">'+l.ref+'</td><td>'+(l.st==="Pending"?'<button class="obtn sm" data-act="lctr-file" data-id="'+i+'">File now</button>':ch("Filed","cs-ok"))+'</td></tr>').join("")+'</tbody></table></div><p class="note">Large cash reports are filed whether or not the activity is suspicious. The UGX 20m threshold here is a demo setting.</p>';}
+ else if(t==="recon"){$("#rp-recon").innerHTML='<p class="note" style="margin:0 0 10px">E-money in issue must be fully backed by funds in the trust accounts. Unsettled items are netted off so timing differences are not reported as shortfalls. Select a day for the detail.</p><div class="otw"><table class="ot"><thead><tr><th>Date</th><th class="r">E-money in issue</th><th class="r">Trust balance</th><th class="r">In transit</th><th class="r">Variance</th><th>Status</th></tr></thead><tbody>'+
+   RECON.map((r,i)=>'<tr class="click" data-recon="'+i+'"><td>'+dKla(r.d)+'</td><td class="r m">'+uM(r.em)+'</td><td class="r m">'+uM(r.tr)+'</td><td class="r m">'+uM(r.tx)+'</td><td class="r m"'+(r.v<0?' style="color:var(--bad)"':"")+'>'+(r.v?(r.v>0?"+":"")+uM(r.v):"0")+'</td><td>'+ch(r.st,r.st==="Reconciled"?"cs-ok":r.v<0?"cs-bad":"cs-amb")+'</td></tr>').join("")+'</tbody></table></div><div style="margin-top:8px"><button class="obtn sec sm" data-act="see-recon-sql">Read the reconciliation SQL</button></div>';}
+ else if(t==="cal"){$("#rp-cal").innerHTML='<div class="otw"><table class="ot"><thead><tr><th>Return</th><th>Recipient</th><th>Frequency</th><th>Next due</th><th>Status</th></tr></thead><tbody>'+RETURNS.map(r=>'<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+(r[3]==null?"Continuous":r[3]===0?"Today":dKla(T0+r[3]*DAY)+" ("+r[3]+" days)")+'</td><td>'+ch(r[4],/Done|Ongoing/.test(r[4])?"cs-ok":r[4]==="Draft"||r[4]==="In progress"?"cs-amb":"cs-mut")+'</td></tr>').join("")+'</tbody></table></div><p class="note">A demo schedule. Real due dates follow the current Bank of Uganda and FIA requirements.</p>';}}
+function reconDrawer(i){const r=RECON[+i];if(!r)return;drawer("recon",i,'<h4>Reconciliation · '+dKla(r.d)+'</h4><p>'+r.st+'</p>','<dl class="kv"><dt>E-money in issue</dt><dd>UGX '+fmt(r.em)+'</dd><dt>Trust balance</dt><dd>UGX '+fmt(r.tr)+'</dd><dt>Net in transit</dt><dd>UGX '+fmt(r.tx)+'</dd><dt>Variance</dt><dd>UGX '+fmt(r.v)+'</dd></dl><div class="dsec"><h5>Finding</h5><p style="margin:0">'+esc(r.why)+'.</p></div><div class="dsec"><h5>Control</h5><p style="margin:0">Variance = trust balance + net unsettled items − e-money in issue. Any shortfall is escalated the same day and noted in the next return.</p></div>','<button class="obtn sec" data-act="see-recon-sql">Read the SQL</button>');}
+function rWizard(){const w=OS.str,mlco=OS.role==="MLCO",elig=OC.filter(c=>c.stage>=2&&c.stage<=3&&!c.str);if(!w.cs&&elig.length)w.cs=elig[0].id;const c=w.cs?csById(w.cs):null;
+  if(c&&!w.flags.length)w.flags=TYP[c.t].f.slice(0,2);
+  const from=c?dKla(c.opened-6*DAY):"",to=c?dKla(c.opened):"";
+  if(c&&!w.narr)w.narr="Between "+from+" and "+to+", "+(c.etype==="Agent"?"agent ":"wallet ")+c.sub+" was involved in activity consistent with "+TYP[c.t].n.toLowerCase()+". Red flags: "+w.flags.join("; ").toLowerCase()+". The total value involved is UGX "+fmt(c.amt)+". The activity does not fit the customer's profile and no economic purpose was established. The "+(c.etype==="Agent"?"agent was suspended":"wallet was restricted")+" pending review under case "+c.id+".";
+  const checks=[["A case and subject are selected",!!c],["At least one red flag is ticked",w.flags.length>0],["Narrative covers who, what, when and why (120+ characters)",w.narr.length>=120],["Amount is recorded",!!c&&c.amt>0],["Submitted by the MLCO",mlco]];const ok=checks.every(x=>x[1]);
+  $("#rp-wizard").innerHTML='<div class="steps">'+["Select case","Report details","Narrative","Validate and submit"].map((s,i)=>'<span class="'+(i+1<w.step?"done":i+1===w.step?"on":"")+'">'+(i+1)+'. '+s+'</span>').join("")+'</div>'+
+   (w.step===1?'<div class="box"><h4>Which case is this report about?</h4><p class="sub">Cases under investigation or with the MLCO that have no STR yet.</p>'+(elig.length?'<div class="ccards">'+elig.map(x=>'<button class="ccard2'+(x.id===w.cs?" sel":"")+'" data-str-cs="'+x.id+'"><b>'+x.id+' · '+TYP[x.t].n+'</b><p class="m">'+x.sub+' · UGX '+uM(x.amt)+'</p><p>'+STAGES[x.stage]+'</p></button>').join("")+'</div>':'<p class="muted">No eligible cases. Escalate an alert from the queue first.</p>')+'</div>'
+   :w.step===2&&c?'<div class="box"><div class="form"><label class="fld"><span>Reporting entity</span><input type="text" value="'+OPERATOR+' (fictional)" readonly></label><label class="fld"><span>Report type</span><input type="text" value="Suspicious transaction report (STR)" readonly></label><label class="fld"><span>Subject</span><input type="text" value="'+c.sub+' ('+c.etype+')" readonly></label><label class="fld"><span>Typology</span><input type="text" value="'+TYP[c.t].n+'" readonly></label><label class="fld"><span>Period</span><input type="text" value="'+from+' to '+to+'" readonly></label><label class="fld"><span>Amount (UGX)</span><input type="text" value="'+fmt(c.amt)+'" readonly></label><div class="fld full"><span>Red flags observed</span>'+TYP[c.t].f.map(f=>'<label class="chk"><input type="checkbox" data-str-flag="'+esc(f)+'"'+(w.flags.indexOf(f)>=0?" checked":"")+'><span>'+esc(f)+'</span></label>').join("")+'</div></div></div>'
+   :w.step===3&&c?'<div class="box"><h4>Narrative</h4><p class="sub">Drafted from the case. Edit it before submitting.</p><textarea class="ta" id="str-narr" style="min-height:150px">'+esc(w.narr)+'</textarea><p class="note">'+w.narr.length+' characters</p></div>'
+   :'<div class="box"><h4>Validation</h4><ul class="valid">'+checks.map(x=>'<li><span class="'+(x[1]?"y":"n")+'">'+(x[1]?"✓":"✗")+'</span>'+x[0]+'</li>').join("")+'</ul>'+(!mlco?'<p class="note">Only the MLCO can submit. <button class="lnk" data-act="role-mlco">Switch to the MLCO role</button></p>':"")+'</div>')+
+   '<div class="fbar" style="margin-top:10px">'+(w.step>1?'<button class="obtn sec" data-act="str-prev">Back</button>':"")+'<span class="spacer"></span>'+(w.step<4?'<button class="obtn" data-act="str-next"'+(c?"":" disabled")+'>Continue</button>':'<button class="obtn" data-act="str-submit"'+(ok?"":" disabled")+'>Submit to goAML</button>')+'</div>';}
+
+/* ---------- ML studio ---------- */
+function rMl(t){if(t==="models"){const m=MODELS.find(x=>x.id===OS.selModel)||MODELS[0];const psiC=v=>v>.25?ch("Retrain","cs-bad"):v>=.1?ch("Monitor","cs-amb"):ch("Stable","cs-ok");
+  $("#ml-models").innerHTML='<div class="ccards" style="margin-bottom:10px">'+MODELS.map(x=>'<button class="ccard2'+(x.id===m.id?" sel":"")+'" data-model="'+x.id+'"><b>'+x.n+'</b><p>'+x.algo+' · '+x.ver+'</p><p>'+ch(x.role,x.role==="Champion"?"cs-ok":"cs-acc")+' ROC-AUC '+x.auc.toFixed(3)+'</p></button>').join("")+'</div>'+
+   '<div class="kpis">'+kp("ROC-AUC",m.auc.toFixed(3))+kp("PR-AUC",m.prauc.toFixed(3),"Base rate under 2%")+kp("Precision at alert budget",pc(m.pab,0))+kp("Recall at alert budget",pc(m.rab,0))+kp("Last trained",m.trained)+'</div>'+
+   '<div class="grid2"><div class="box"><h4>Feature importance <small>mean |SHAP|, share of total</small></h4>'+chH(m.fi.map(f=>[f[0],f[1]]),{f:v=>pc(v,0),lw:170,w:520,t:"Feature importance"})+'</div>'+
+   '<div class="box"><h4>Calibration <small>out-of-time test, deciles</small></h4><p class="sub">'+(m.cal[9][1]<m.cal[9][0]-.05?"Slightly over-confident at the top; isotonic recalibration is queued.":"Predicted probabilities track observed fraud rates closely.")+'</p>'+chCal(m.cal)+'</div></div>'+
+   '<div class="grid2"><div class="box"><h4>Drift monitor <small>population stability index, this week vs training</small></h4><div class="otw" style="margin-top:6px"><table class="ot"><thead><tr><th>Feature</th><th class="r">PSI</th><th>Status</th></tr></thead><tbody>'+m.psi.map(p=>'<tr><td class="m">'+p[0]+'</td><td class="r m">'+p[1].toFixed(2)+'</td><td>'+psiC(p[1])+'</td></tr>').join("")+'</tbody></table></div><p class="note">Under 0.10 is stable, 0.10 to 0.25 needs watching, above 0.25 triggers a retrain review.</p></div>'+
+   '<div class="box"><h4>Model card</h4><dl class="kv" style="margin-top:6px"><dt>Algorithm</dt><dd>'+m.algo+'</dd><dt>Version</dt><dd>'+m.ver+' ('+m.role.toLowerCase()+')</dd><dt>Label</dt><dd>'+m.label+'</dd><dt>Training window</dt><dd>'+m.win+'</dd><dt>Retrain cadence</dt><dd>'+m.cad+'</dd><dt>Features</dt><dd>'+m.fi.length+' engineered features</dd><dt>Governance</dt><dd>Independent validation before promotion; champion and challenger run side by side</dd></dl></div></div>';}
+ else if(t==="thr"){renderModel();}
+ else if(t==="explain"){const L=OA.filter(isOpen).sort((a,b)=>b.sc-a.sc).slice(0,12);if(!OS.explainId||!alById(OS.explainId))OS.explainId=L[0].id;const a=alById(OS.explainId),fs=factorsFor(a);
+  $("#ml-explain").innerHTML='<div class="fbar"><span class="muted">Alert</span><select class="fsel" data-explain>'+L.map(x=>'<option value="'+x.id+'"'+(x.id===a.id?" selected":"")+'>'+x.id+' · '+TYP[x.t].n+' · '+x.sc.toFixed(2)+'</option>').join("")+'</select></div>'+
+   '<div class="box"><h4>How the model reached '+a.sc.toFixed(3)+' <small>additive contributions in log-odds</small></h4><p class="sub">Starting from a 2% base rate, each feature pushes the score up (red) or down (green). The axis is labelled in probability.</p>'+chWF(fs,lgt(.02))+
+   '<p style="margin:8px 0 0">In plain words: '+fs.filter(f=>f[1]>0).slice(0,2).map(f=>f[0].toLowerCase()).join(" and ")+' drove this alert, while '+(fs.find(f=>f[1]<0)||["nothing"])[0].toLowerCase()+' pulled it down. An analyst should verify those two facts first.</p></div>';}}
+function rAudit(){const envs=["All"].concat(Array.from(new Set(AUD.map(a=>a.env))));const L=AUD.filter(a=>OS.audf==="All"||a.env===OS.audf);
+  $("#audit-root").innerHTML='<div class="fbar">'+envs.map(e=>'<button class="fchip" data-audf="'+esc(e)+'" aria-pressed="'+(OS.audf===e)+'">'+esc(e)+'</button>').join("")+'<span class="spacer"></span><span class="muted">'+L.length+' entries</span></div><div class="otw"><table class="ot"><thead><tr><th>Time</th><th>User</th><th>Environment</th><th>Action</th><th>Object</th></tr></thead><tbody>'+
+   L.map(a=>'<tr><td class="m">'+dKla(a.t)+' '+new Date(a.t).toLocaleTimeString("en-GB",{timeZone:"Africa/Kampala"})+'</td><td>'+esc(a.u)+'</td><td>'+esc(a.env)+'</td><td>'+esc(a.a)+'</td><td class="m">'+esc(a.o)+'</td></tr>').join("")+'</tbody></table></div><p class="note">The log is append-only and records the role used for every action, which is what auditors and the regulator ask to see.</p>';}
+
+/* ---------- actions ---------- */
+function act(name,id,el){const a=alById(id);
+  switch(name){
+  case "dclose":closeDrawer();break;
+  case "logout":osLogout();break;
+  case "home":osHome();break;
+  case "pause":OS.paused=!OS.paused;rMonitor("live");break;
+  case "tx-alert":{const x=LIVE.find(v=>v.id===id);if(!x)break;const na=txFromLive(x);audit("Monitoring","Raised alert from transaction "+x.id,na.id);toast("Alert "+na.id+" raised");renderNav();alertDrawer(na.id);break;}
+  case "al-assign":a.own="You";if(a.st==="New")a.st="Assigned";a.hist.push([Date.now(),"Assigned to "+who()]);audit("Alerts & Cases","Assigned alert to self",a.id);break;
+  case "al-review":a.own="You";a.st="In review";a.hist.push([Date.now(),"Review started by "+who()]);audit("Alerts & Cases","Started review",a.id);break;
+  case "al-note":{const t=$("#al-note").value.trim();if(!t){toast("Write a note first");return;}a.notes.push([Date.now(),t]);a.hist.push([Date.now(),"Note added by "+who()]);audit("Alerts & Cases","Added note",a.id);break;}
+  case "al-escalate":{a.st="Escalated";a.own=a.own||"You";const c=newCase(a,1);a.hist.push([Date.now(),"Escalated to "+c.id+" by "+who()]);audit("Alerts & Cases","Escalated alert to case "+c.id,a.id);toast("Case "+c.id+" opened");break;}
+  case "al-fp":{const why=$("#al-fp-why").value;a.st="Closed: false positive";a.hist.push([Date.now(),"Closed as false positive ("+why+") by "+who()]);audit("Alerts & Cases","Closed as false positive: "+why,a.id);toast(a.id+" closed. Feedback logged for rule tuning");break;}
+  case "al-tp":{a.st="Closed: true positive";const c=newCase(a,2);a.hist.push([Date.now(),"Fraud confirmed by "+who()+"; "+c.id+" opened for reporting"]);audit("Alerts & Cases","Confirmed fraud, opened "+c.id,a.id);toast("Fraud confirmed. "+c.id+" is ready for investigation");break;}
+  case "al-reopen":a.st="In review";a.hist.push([Date.now(),"Reopened by "+who()]);audit("Alerts & Cases","Reopened alert",a.id);break;
+  case "cs-next":{const c=csById(id);c.stage++;c.log.push([Date.now(),"Moved to "+STAGES[c.stage]+" by "+who()]);audit("Alerts & Cases","Moved case to "+STAGES[c.stage],c.id);break;}
+  case "cs-back":{const c=csById(id);c.stage--;c.log.push([Date.now(),"Sent back to "+STAGES[c.stage]+" by "+who()]);audit("Alerts & Cases","Sent case back to "+STAGES[c.stage],c.id);break;}
+  case "cs-close":{const c=csById(id);if(c.stage===3&&OS.role!=="MLCO"){toast("Closing without an STR needs the MLCO role");return;}c.log.push([Date.now(),"Closed by "+who()+(c.stage===3?" without an STR":"")]);c.stage=5;audit("Alerts & Cases","Closed case",c.id);break;}
+  case "cs-str":{OS.str={step:2,cs:id,flags:[],narr:""};osOpen("reports","wizard");return;}
+  case "ag-watch":case "ag-suspend":case "ag-clear":{const g=agById(id);const to={"ag-watch":"Watch","ag-suspend":"Suspended","ag-clear":"Active"}[name];g.st=to;g.note=to==="Active"?"":g.note;audit("Agent Network",(to==="Active"?"Cleared agent to active":to==="Watch"?"Put agent on watch":"Suspended agent"),g.id);toast(g.id+" is now "+to.toLowerCase());break;}
+  case "ag-audit":{audit("Agent Network","Requested float audit",id);toast("Float audit requested for "+id);break;}
+  case "ag-more":OS.agf.n+=40;rAgents("list");return;
+  case "g-expand":OS.gx=true;audit("Link Analysis","Expanded network to second degree","W-338201");rLinks();return;
+  case "g-reset":OS.gx=false;if(OS.gsel&&OS.gsel[0]==="x")OS.gsel="hub";rLinks();return;
+  case "g-case":{const c={id:"CS-"+(26040+OC.length),sub:"W-338201",etype:"Wallet",t:"mule",amt:8100000,opened:Date.now(),stage:2,own:"You",alerts:[],log:[[Date.now(),"Opened from link analysis: "+(OS.gx?15:11)+" connected entities"]],str:null};OC.unshift(c);audit("Link Analysis","Opened case on mule ring",c.id);toast(c.id+" opened with the network attached");renderNav();return;}
+  case "edd-done":{const e=EDD[+id],out=$("#edd-out").value;if(out==="Exit the relationship"&&OS.role!=="MLCO"){toast("Exiting a customer needs the MLCO role");return;}e.st="Completed";e.last=Date.now();e.due=Date.now()+182*DAY;audit("AML & KYC","Completed EDD review: "+out,e.w);toast("Review completed: "+out);break;}
+  case "lctr-file":{const l=LCTR[+id];l.st="Filed";audit("Reporting","Filed large cash report",l.ref);toast(l.ref+" filed");rReports("lctr");return;}
+  case "str-next":{if(OS.str.step===3){const ta=$("#str-narr");if(ta)OS.str.narr=ta.value;}OS.str.step=Math.min(4,OS.str.step+1);rWizard();return;}
+  case "str-prev":{if(OS.str.step===3){const ta=$("#str-narr");if(ta)OS.str.narr=ta.value;}OS.str.step=Math.max(1,OS.str.step-1);rWizard();return;}
+  case "role-mlco":setRole("MLCO");return;
+  case "str-submit":{const c=csById(OS.str.cs);const ref="UG-STR-2026-"+String(10800+STRS.length*13+Math.floor(Math.random()*9)).padStart(5,"0");STRS.unshift({ref,cs:c.id,sub:c.sub,t:c.t,amt:c.amt,date:Date.now(),st:"Submitted"});c.stage=4;c.str=ref;c.log.push([Date.now(),"STR "+ref+" submitted to the FIA via goAML by "+who()]);audit("Reporting","Submitted STR for "+c.id,ref);toast("STR "+ref+" submitted");
+    const s=STRS[0];setTimeout(()=>{s.st="Acknowledged";audit("Reporting","goAML acknowledged STR (simulated)",ref);toast("goAML acknowledged "+ref);if(OS.env==="reports"&&OS.tabs.reports==="str")rReports("str");},2600);OS.str={step:1,cs:null,flags:[],narr:""};osOpen("reports","str");return;}
+  case "see-recon-sql":{cur=FILES.findIndex(f=>f.f==="trust_recon.sql");renderFiles();setFull(false);go("code");return;}
+  }
+  refreshDrawer();renderNav();if(OS.env!=="links")renderEnv();}
+function setRole(r){OS.role=r;audit("Portal","Switched role to "+r);toast("Acting as "+r);renderNav();renderEnv();refreshDrawer();}
+function setFull(on){OS.full=on;const m=$(".mac");m.classList.toggle("full",on);root.style.overflow=on?"hidden":"";$("#mac-full").textContent=on?"Exit full screen":"Full screen";$("#mac-full").setAttribute("aria-pressed",String(on));}
+
+/* ---------- events ---------- */
+osEl.addEventListener("click",e=>{const t=e.target;
+  const q=s=>t.closest(s);let b;
+  if((b=q("[data-act]"))&&osEl.contains(b)){if(b.disabled)return;act(b.dataset.act,b.dataset.id,b);return;}
+  if((b=q("[data-env-open]"))){osOpen(b.dataset.envOpen);return;}
+  if((b=q("[data-etab]"))){osOpen(b.dataset.env||b.closest(".env").dataset.env,b.dataset.etab);return;}
+  if((b=q("[data-alert]"))){alertDrawer(b.dataset.alert);return;}
+  if((b=q("[data-case]"))){caseDrawer(b.dataset.case);return;}
+  if((b=q("[data-agent]"))){agentDrawer(b.dataset.agent);return;}
+  if((b=q("[data-tx]"))){txDrawer(b.dataset.tx);return;}
+  if((b=q("[data-edd]"))){eddDrawer(b.dataset.edd);return;}
+  if((b=q("[data-recon]"))){reconDrawer(b.dataset.recon);return;}
+  if((b=q("[data-node]"))){OS.gsel=b.dataset.node;rLinks();return;}
+  if((b=q("[data-model]"))){OS.selModel=b.dataset.model;rMl("models");return;}
+  if((b=q("[data-dist]"))){OS.agf.d=b.dataset.dist;OS.agf.st="all";OS.agf.sig="all";osOpen("agents","list");return;}
+  if((b=q("[data-ag-sig]"))){OS.agf.sig=b.dataset.agSig;OS.agf.d="all";osOpen("agents","list");return;}
+  if((b=q("[data-ag-st]"))){OS.agf.st=b.dataset.agSt;OS.agf.n=40;rAgents("list");return;}
+  if((b=q("[data-ag-sort]"))){const k=b.dataset.agSort;if(OS.agf.sort===k)OS.agf.dir*=-1;else{OS.agf.sort=k;OS.agf.dir=-1;}rAgents("list");return;}
+  if((b=q("[data-af-pri]"))){OS.af.pri=b.dataset.afPri;rAlerts("queue");return;}
+  if((b=q("[data-af-own]"))){OS.af.own=b.dataset.afOwn;rAlerts("queue");return;}
+  if((b=q("[data-lf-dec]"))){OS.lf.dec=b.dataset.lfDec;rMonitor("live");return;}
+  if((b=q("[data-typ]"))){OS.af={pri:"all",own:"all",typ:b.dataset.typ,st:"open",q:""};osOpen("alerts","queue");return;}
+  if((b=q("[data-str-cs]"))){OS.str={step:1,cs:b.dataset.strCs,flags:[],narr:""};rWizard();return;}
+  if((b=q("[data-audf]"))){OS.audf=b.dataset.audf;rAudit();return;}
+  if((b=q("[data-login]"))){osLogin((osEl.querySelector('input[name="os-role"]:checked')||{}).value||"Analyst");return;}
+  if(q("#os-bell")){OS.af={pri:"P1",own:"all",typ:"all",st:"open",q:""};osOpen("alerts","queue");return;}
+  if(q("#os-role")){setRole(OS.role==="Analyst"?"MLCO":"Analyst");return;}
+  if(q("#os-home")){osHome();return;}
+  if((b=q(".gs-res [data-go]"))){const g=b.dataset.go.split(":");$("#gs-res").hidden=true;$("#gs-q").value="";if(g[0]==="alert"){osOpen("alerts","queue");alertDrawer(g[1]);}else if(g[0]==="case"){osOpen("alerts","cases");caseDrawer(g[1]);}else if(g[0]==="agent"){osOpen("agents","list");agentDrawer(g[1]);}else if(g[0]==="str"){osOpen("reports","str");}return;}
+});
+osEl.addEventListener("keydown",e=>{const g=e.target.closest&&e.target.closest("[data-node]");if(g&&(e.key==="Enter"||e.key===" ")){e.preventDefault();OS.gsel=g.dataset.node;rLinks();}});
+osEl.addEventListener("change",e=>{const t=e.target,d=t.dataset;
+  if(d.ruleOn){const r=ruleById(d.ruleOn);r.on=t.checked;audit("Monitoring",(r.on?"Enabled":"Disabled")+" rule "+r.id);rMonitor("rules");renderNav();return;}
+  if(d.ruleV){const r=ruleById(d.ruleV);const v=clamp(+t.value,r.mn,r.mx);if(v!==r.v){audit("Monitoring","Changed "+r.id+" threshold from "+r.v+r.u+" to "+v+r.u);r.v=v;}rMonitor("rules");return;}
+  if(d.afTyp!=null){OS.af.typ=t.value;rAlerts("queue");return;}
+  if(d.afSt!=null){OS.af.st=t.value;rAlerts("queue");return;}
+  if(d.agD!=null){OS.agf.d=t.value;OS.agf.n=40;rAgents("list");return;}
+  if(d.agSigsel!=null){OS.agf.sig=t.value;OS.agf.n=40;rAgents("list");return;}
+  if(d.lfCh!=null){OS.lf.ch=t.value;rMonitor("live");return;}
+  if(d.calc){OS.calc[d.calc]=+t.value;const r=$("#cra-res");if(r)r.innerHTML=craResult();return;}
+  if(d.explain!=null){OS.explainId=t.value;rMl("explain");return;}
+  if(d.strFlag!=null){const f=d.strFlag,w=OS.str;if(t.checked){if(w.flags.indexOf(f)<0)w.flags.push(f);}else w.flags=w.flags.filter(x=>x!==f);w.narr="";return;}
+});
+osEl.addEventListener("input",e=>{const t=e.target,d=t.dataset;
+  if(d.afQ!=null){OS.af.q=t.value;const pos=t.selectionStart;rAlerts("queue");const n=osEl.querySelector("[data-af-q]");n.focus();n.setSelectionRange(pos,pos);return;}
+  if(d.agQ!=null){OS.agf.q=t.value;OS.agf.n=40;const pos=t.selectionStart;rAgents("list");const n=osEl.querySelector("[data-ag-q]");n.focus();n.setSelectionRange(pos,pos);return;}
+  if(d.calc==="vol"){OS.calc.vol=+t.value;const lab=t.closest(".fld").querySelector("span");if(lab)lab.textContent="Expected monthly volume: UGX "+fmt(OS.calc.vol)+"m";const r=$("#cra-res");if(r)r.innerHTML=craResult();return;}
+  if(t.id==="gs-q"){gsearch(t.value);return;}
+});
+function gsearch(q){const box=$("#gs-res");q=q.trim().toLowerCase();if(q.length<2){box.hidden=true;return;}const r=[];
+  OA.forEach(a=>{if(a.id.toLowerCase().indexOf(q)>=0||a.ent.toLowerCase().indexOf(q)>=0)r.push(["alert:"+a.id,a.id+" · "+TYP[a.t].n,a.ent]);});
+  OC.forEach(c=>{if(c.id.toLowerCase().indexOf(q)>=0||c.sub.toLowerCase().indexOf(q)>=0)r.push(["case:"+c.id,c.id+" · "+STAGES[c.stage],c.sub]);});
+  AGS.forEach(g=>{if(g.id.toLowerCase().indexOf(q)>=0||g.name.toLowerCase().indexOf(q)>=0)r.push(["agent:"+g.id,g.id+" · "+g.name,g.d]);});
+  STRS.forEach(s=>{if(s.ref.toLowerCase().indexOf(q)>=0)r.push(["str:"+s.ref,s.ref,s.st]);});
+  box.innerHTML=r.length?r.slice(0,12).map(x=>'<button data-go="'+x[0]+'"><span>'+esc(x[1])+'</span><small>'+esc(x[2])+'</small></button>').join(""):'<p class="muted" style="margin:6px 8px">Nothing found. Try AL-412, CS-260, AG-10 or a wallet ID.</p>';box.hidden=false;}
+document.addEventListener("click",e=>{if(!e.target.closest(".gsearch")){const b=$("#gs-res");if(b)b.hidden=true;}});
+document.addEventListener("keydown",e=>{if(e.key!=="Escape")return;if(!$("#cmdk").hidden||!$("#wm").hidden)return;if(OS.drawer){closeDrawer();e.stopPropagation();return;}if(OS.full){setFull(false);}},true);
+$("#mac-full").addEventListener("click",()=>setFull(!OS.full));
+$("#portal-full").addEventListener("click",()=>{if(!OS.on)osLogin("Analyst");setFull(true);});
+
+/* ---------- live loop ---------- */
+setInterval(()=>{if(!OS.on||!OS.macVis||OS.paused||document.hidden)return;const x=mkTx();LIVE.unshift(x);if(LIVE.length>80)LIVE.pop();liveN++;if(x.dec==="Review")liveRev++;if(x.dec==="Block")liveBlk++;if(x.dec==="Report")liveRep++;
+  if((x.dec==="Block"||(x.dec==="Review"&&x.s>.85))&&Date.now()-lastAuto>25000){lastAuto=Date.now();const na=txFromLive(x);audit("Monitoring","Alert raised automatically from "+x.id,na.id);renderNav();}
+  if(OS.env==="monitor"&&OS.tabs.monitor==="live"&&!$("#os-app").hidden){const b=$("#live-body");if(b)b.innerHTML=liveRows(40);const k=$("#mon-live .kpis");if(k)k.innerHTML=kp("Scored this session",fmt(liveN+24),"Sampled from about 2.5 per second")+kp("Sent to review",fmt(liveRev))+kp("Blocked",fmt(liveBlk))+kp("Reported (large cash)",fmt(liveRep))+kp("Rules live",ORULES.filter(r=>r.on).length+" of "+ORULES.length);}
+  if(OS.env==="command"&&!$("#os-app").hidden){const b=$("#cmd-live");if(b)b.innerHTML=liveRows(6,true);const k=$("#cmd-root .kpi2 b");if(k)k.textContent=fmt(txToday());}
+},1000);
+if("IntersectionObserver" in window){new IntersectionObserver(es=>{es.forEach(en=>{OS.macVis=en.isIntersecting;});}).observe($(".mac"));}
+
+/* ---------- bridges to the rest of the page ---------- */
+function labShow(k){const m={rules:["monitor","tuner"],screen:["aml","sanctions"],model:["ml","thr"]}[k]||["command",null];osOpen(m[0],m[1]);}
+const baseCmd=cmdItems;cmdItems=function(){const it=baseCmd();ENVS.forEach(e=>it.push({g:"Fraud portal",t:"Open "+e[1],k:"portal "+e[0]+" "+ENV_DESC[e[0]],ic:"go",run:()=>{osOpen(e[0]);go("lab");}}));it.push({g:"Fraud portal",t:"Open the portal full screen",k:"portal fullscreen macbook",ic:"act",run:()=>{osOpen("command");setFull(true);}});return it;};
+TERM.portal=()=>{osOpen("command");go("lab");tp("Signed in to the "+OPERATOR+" fraud portal as Analyst.","d");};
+function osInit(){showView("login");renderNav();}
 
 renderXP();renderWorkFilters();renderWorks();renderSkills();
-labShow("rules");
+osInit();
 paintAll();
 })();
 
